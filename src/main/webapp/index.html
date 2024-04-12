@@ -50,6 +50,15 @@
 					result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
 				}
 			}
+
+			// // Default dev=1 for localhost
+			// if (!result.hasOwnProperty('dev')) {
+			// 	result['dev'] = 1;
+			// }
+
+			// if (!result.hasOwnProperty('offline')) {
+			// 	result['offline'] = 1;
+			// }
 			
 			return result;
 		})();
@@ -255,9 +264,12 @@
 		{
 			// Used to request grapheditor/mxgraph sources in dev mode
 			var mxDevUrl = document.location.protocol + '//test.draw.io/drawio/src/main';
+			// var mxDevUrl = 'C:/Users/zyachin/Desktop/Repos/O2DES-Studio/src/main';
 			
 			// Used to request draw.io sources in dev mode
 			var drawDevUrl = document.location.protocol + '//test.draw.io/drawio/src/main/webapp/';
+			// var drawDevUrl = 'C:/Users/zyachin/Desktop/Repos/O2DES-Studio/src/main/webapp';
+
 			var geBasePath = drawDevUrl + '/js/grapheditor';
 			var mxBasePath = mxDevUrl + '/mxgraph';
 			
@@ -268,6 +280,13 @@
 				drawDevUrl = './';
 				
 				// Forces includes for dev environment in node.js
+				mxForceIncludes = true;
+			}
+
+			if (location.hostname == 'localhost' || location.hostname == '127.0.0.1') {
+				drawDevUrl = `http://${location.host}/`;
+				geBasePath = `http://${location.host}/js/grapheditor`;
+				mxBasePath = `http://${location.host}/mxgraph`;
 				mxForceIncludes = true;
 			}
 
@@ -437,6 +456,7 @@
 	<div class="geBlock">
 		<h1>Flowchart Maker and Online Diagram Software</h1>
 		<p>
+			LMAO SIR
 			draw.io is free online diagram software. You can use it as a flowchart maker, network diagram software, to create UML online, as an ER diagram tool, 
 			to design database schema, to build BPMN online, as a circuit diagram maker, and more. draw.io can import .vsdx, Gliffy&trade; and Lucidchart&trade; files .
 		</p>
