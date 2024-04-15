@@ -90,6 +90,8 @@
 
 	Sidebar.prototype.electrical = ['LogicGates', 'Resistors', 'Capacitors', 'Inductors', 'SwitchesRelays', 'Diodes', 'Sources', 'Transistors', 'Misc', 'Audio', 'PlcLadder', 'Abstract', 'Optical', 'VacuumTubes', 'Waveforms', 'Instruments', 'RotMech', 'Transmission'];
 
+
+	Sidebar.prototype.o2des = ['System']
 	/**
 	 * Description of custom libraries, see https://www.drawio.com/doc/faq/configure-diagram-editor
 	 */
@@ -162,6 +164,7 @@
            	                           {id: 'archimate3', prefix: 'archimate3', libs: Sidebar.prototype.archimate3},
            	                           {id: 'archimate', libs: ['archimate']},
            	                           {id: 'webicons', libs: ['webicons', 'weblogos']},
+									   {id: 'o2des', prefix: 'o2des', libs: Sidebar.prototype.o2des},
            	                           {id: 'sysml', prefix: 'sysml', libs: Sidebar.prototype.sysml}];
 	
 	/**
@@ -462,6 +465,11 @@
 			{title: mxResources.get('arrows'), id: 'arrows2', image: IMAGE_PATH + '/sidebar-arrows2.png'},
 			{title: mxResources.get('clipart'), id: 'clipart', image: IMAGE_PATH + '/sidebar-clipart.png'},
 			{title: mxResources.get('flowchart'), id: 'flowchart', image: IMAGE_PATH + '/sidebar-flowchart.png'}];
+
+		// Check image path
+		console.log('IMAGE_PATH: ' + IMAGE_PATH);
+
+		var o2desEntries = [{title: mxResources.get('o2des'), id: 'o2des', image: IMAGE_PATH + '/sidebar-basic.png'}];
 		
 		if (Editor.currentTheme == 'sketch' ||
 			Editor.currentTheme == 'min')
@@ -475,6 +483,7 @@
 		var year = new Date().getFullYear();
 
 		this.entries = [{title: mxResources.get('standard'), entries: stdEntries},
+						{title: mxResources.get('o2des'), entries: o2desEntries},
             			{title: mxResources.get('software'),
             			entries: [{title: 'Active Directory', id: 'active_directory', image: IMAGE_PATH + '/sidebar-active_directory.png'},
 								{title: mxResources.get('android'), id: 'android', image: IMAGE_PATH + '/sidebar-android.png'},
@@ -529,6 +538,7 @@
 								{title: mxResources.get('procEng'), id: 'pid', image: IMAGE_PATH + '/sidebar-pid.png'},
 								{title: 'Threat Modeling', id: 'threatModeling', image: IMAGE_PATH + '/sidebar-threatmodeling.png'},
 								{title: 'Web Icons', id: 'webicons', image: IMAGE_PATH + '/sidebar-webIcons.png'},
+								{title: mxResources.get('o2des'), image: IMAGE_PATH + '/sidebar-ios.png'},
 								{title: mxResources.get('signs'), id: 'signs', image: IMAGE_PATH + '/sidebar-signs.png'}]}];
 
 	};
@@ -872,6 +882,13 @@
 		this.addStencilPalette('arrows', mxResources.get('arrows'), dir + '/arrows.xml',
 				';html=1;' + mxConstants.STYLE_VERTICAL_LABEL_POSITION + '=bottom;' + mxConstants.STYLE_VERTICAL_ALIGN + '=top;' + mxConstants.STYLE_STROKEWIDTH + '=2;strokeColor=#000000;',
 				null, null, null, null, null, 'arrows');
+
+		// Debug for image directory
+		console.log('Image directory: ' + imgDir);
+
+		this.setCurrentSearchEntryLibrary('O2DES', 'system')
+		// this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', ['grid', 'End'], ['Start', 'End']);
+		this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', '_128x128.png', ['Antivirus', 'Data_Filtering']);
 		this.addArrows2Palette();
 		this.setCurrentSearchEntryLibrary('clipart', 'computer');
 		this.addImagePalette('computer', 'Clipart / Computer', imgDir
