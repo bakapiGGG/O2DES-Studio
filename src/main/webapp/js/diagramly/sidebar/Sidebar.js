@@ -466,8 +466,8 @@
 			{title: mxResources.get('clipart'), id: 'clipart', image: IMAGE_PATH + '/sidebar-clipart.png'},
 			{title: mxResources.get('flowchart'), id: 'flowchart', image: IMAGE_PATH + '/sidebar-flowchart.png'}];
 
-		// Check image path
-		console.log('IMAGE_PATH: ' + IMAGE_PATH);
+		// // Debug image path
+		// console.log('IMAGE_PATH: ' + IMAGE_PATH);
 
 		var o2desEntries = [{title: mxResources.get('o2des'), id: 'o2des', image: IMAGE_PATH + '/sidebar-basic.png'}];
 		
@@ -884,11 +884,11 @@
 				null, null, null, null, null, 'arrows');
 
 		// Debug for image directory
-		console.log('Image directory: ' + imgDir);
+		// console.log('Image directory: ' + imgDir);
 
 		this.setCurrentSearchEntryLibrary('O2DES', 'system')
 		// this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', ['grid', 'End'], ['Start', 'End']);
-		this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', '_128x128.png', ['Antivirus', 'Data_Filtering']);
+		this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/o2des/', '_128x128.png', ['Tilde', 'Vertical_Equal']);
 		this.addArrows2Palette();
 		this.setCurrentSearchEntryLibrary('clipart', 'computer');
 		this.addImagePalette('computer', 'Clipart / Computer', imgDir
