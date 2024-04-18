@@ -180,6 +180,12 @@ Sidebar.prototype.dropTargetDelay = 200;
  */
 Sidebar.prototype.gearImage = STENCIL_PATH + '/clipart/Gear_128x128.png';
 
+// To specify the URL for O2DES library
+Sidebar.prototype.conditionalSign = 'img' + '/lib/clip_art/o2des/Tilde_128x128.png';
+Sidebar.prototype.TimeDelaySign = 'img' + '/lib/clip_art/o2des/Time_Delay_128x128.png';
+
+// 'img' +  '/lib/clip_art/o2des/', '_128x128.png', ['Tilde', 'Vertical_Equal']);
+
 /**
  * Specifies the width of the thumbnails.
  */
@@ -1520,6 +1526,60 @@ Sidebar.prototype.addGeneralPalette = function(expand)
 	this.addPaletteFunctions('general', mxResources.get('general'), (expand != null) ? expand : true, fns);
 	this.setCurrentSearchEntryLibrary();
 };
+
+
+Sidebar.prototype.addO2DESPalette = function(expand)
+{
+	var sb = this;
+	var lineTags = 'line lines connector connectors connection connections arrow arrows ';
+	var dir = STENCIL_PATH;
+	this.setCurrentSearchEntryLibrary('general', 'O2DES');
+	// this.setCurrentSearchEntryLibrary('O2DES', 'system')
+	
+	fns = [
+		this.createVertexTemplateEntry('rounded=0;whiteSpace=wrap;html=1;fillColor=#647687', 120, 60, '', 'Module/System', null, null, 'rect rectangle box'),
+	 	this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;fillColor=#647687', 120, 60, '', 'Activity', null, null, 'rounded rect rectangle box'),
+		 this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;fillColor=#97D077;strokeColor=#97D077', 120, 60, '', 'Resource', null, null, 'rounded rect rectangle box'),
+		this.createVertexTemplateEntry('ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff', 120, 80, '', 'Event/Function', null, null, 'oval ellipse state'),
+		this.createVertexTemplateEntry('shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#B3B3B3;strokeColor=#B3B3B3', 120, 80, '', 'Entity Entering System'),
+		this.addEntry('Entity Leaving System', function()
+		{
+			return sb.createVertexTemplateFromData('jZFNb8MgDIZ/DdcqhR12Trr2tNMOO6PGDWiAI+It5N/PfHRtD5UGQrIfvxjbCDX4dIp6Nu84ghPqTaghIlK1fBrAOSE7Owp1EFJ2fIQ8PonuS7SbdYRA/7kg64Uf7b6hkgoW2lwDC0X8gk87kmEgheoNeS70sGdzMXrOOp+m3MPu4nA9Gx1pRxC9DZowsmw1luBj1uesXVnJ7GKdG9DlOD+j+rIzx0B3/FhWfqrUcY0EDJyrb+VDJEhPR1BQ6/8E6IHixpJ0P6Bue/DW1i57rw0ZsJNpGV8a00v1p7+st1mz0cZ9dW/fWmIPv/4L', 296, 100, 'Entity Leaving System');
+		}),
+		this.createVertexTemplateEntry('shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=1;aspect=fixed;image=' + this.conditionalSign, 28, 48, '', 'Conditional', false, null, 'fixed image icon symbol conditional'),
+		this.createVertexTemplateEntry('shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=1;aspect=fixed;image=' + this.TimeDelaySign, 24, 48, '', 'Time Delay', false, null, 'fixed image icon symbol time delay'),
+		this.createEdgeTemplateEntry('endArrow=block;endFill=1;html=1;', 160, 0, '', 'Material Flow', null, 'uml association'),
+		this.createEdgeTemplateEntry('endArrow=open;endFill=1;endSize=12;html=1;', 160, 0, '', 'Scheduling Edge', null, 'uml association'),
+		// this.createEdgeTemplateEntry('endArrow=classic;direction=north;html=1;', 50, 50, '', 'Material Flow', null, lineTags + 'directional directed'),		
+		this.addEntry('Information Flow', function()
+		{
+			return sb.createVertexTemplateFromData('jZLBbsMgDIafhjuFy65d1vaySpX2BGhYCZODI8fZkj39SKBptqnTDkj4t78fMFa2ascTu645kwdU9qBsxUSSd+1YAaIyOnhln5QxOi1ljneyuyWrO8cQ5T+AyUAvE0JWmIboYU5rZR+JpaGaosNnoi6JuyS+gcj0Ej5nwg1CSWqkxZL1rm8Wfg4g+j0zfaSQOohZOQbE4p+PB1/D3QcsUrn9CagF4SmVMKCT8P6dc30O67VuRS8UkqPRY654KMS07dLKi+MapCDb9v1w+dOkp4Ff4ZdJ2mwecpOWn7mGtwnI5dsB+QI=', 296, 100, 'Information Flow');
+		}),
+		
+		this.addEntry('Emitting Signal', function()
+		{
+			return sb.createVertexTemplateFromData('jVLBTsMwDP2aXFGbCu7QsV1AQuIAHKPFtGFpXbnuaPh6kiXdMtAQh0h+z+89yY5FVXfzhtTQPqIGK6p7UdWEyLHq5hqsFbIwWlQrIWXhn5DrC93y0C0GRdDzfwwyGvbKThCZSIzsbCIIp15D0BeiukPiFhvslX1AHDxZevIDmN2z+QoONTF6quXOpi70+pYIPz1slX2vDW1DduDXxtoU7FFKuPFoZMIdvBjN7ZIyG37N6rfgu7pOaDUvMQG4BOIsoBu4uJ4DlXazAeyAyXkJgVVs9uc+NUbYHHVH6xManyiLOV964c7QYh9xoi0kR/43P0LKv2NYUQP8K8avWrlMNgTBmCt8kc16og6nscDTCUZ5fqHf', 296, 100, 'Emitting Signal');
+		}),
+		this.addEntry('Receiving Signal', function()
+		{
+			return sb.createVertexTemplateFromData('jVRNc5swEP01XDuA7CQ91k6cHNKZzvjQswoLqBUsI4TB+fVdWYtBsZmWC+jt29V+PDYS+3p8NbKtvmMOOkrjfIzEc5SmyUZs6OWQs0eeNgyURuVMmoGj+gAGY0Z7lUMXEC2itqoNwQybBjIbYNIYHEJagTq8tZUl3xjPwDGTGm5oP1VuK64ifZzxN1BlNd2cPHz1llpOZA7cVTLHYQGJl0jsDaL1X/W4B+2aN/XF+x1WrNfEDDT2fxxS73CSuufaOC97noo12Dc5OH4ciR0aW2GJjdTviC2BCYG/wdozj0n2FgmqbK3ZCk3+zTWdjg024JGD0ppD+hshL8PuWmlK4CLEbV3JtVskM8AarDkTxYCWVp3CUJLnXV55V9cfqChiGo/BWFiX29C9w95kwB7Lpn4KkjxuvjzF85MGQT/l5Mu8CUodk+cFrXWEbj3xh3uZcyz68OGm06JjM3RRxn2ViH+rhBzo73PDHSpl4djKzFkGWgChGgps7EHWSrtM30CfwKpMsoE1lKR83qNGc7lA+FYSLrUqG8IykgKQcddZg3/gHrUgkS3w4vIQzs0kcLuLts8uaNf6RVGo0Wl9Z6BTH/LXpTwXKvwLuB9gLIzR2p+3otDJIQknxqdh3icToVquknhd0YtxL6dJx3mf+OHPW1m8/AU=', 296, 100, 'Receiving Signal');
+		}),
+		this.addEntry('Material Queue', function()
+		{
+			return sb.createVertexTemplateFromData('1VTBjsIgFPwa7hR043lZ62lP+wXYPoWEFkJx2/69WJ5r6tbUxI0bDySPGebBDATCRdVtvHTq05ZgCF8TLry1IVVVJ8AYwqguCf8gjNE4CMtvsNnAUic91OEeAUuCb2kOkJAENKE3COy9PbiEFrauoQhye+YoysEH6G4eYYBw/w3YCoLv45Ju1KMfzVpdBoXqM6ZA7xW2XCAmGzzkT9uL2Vig32nvfN57tF6XcFqfEf7eKh3gy8nixLbxziKmQmWQvisLNp3FM/wu5v1GgXYNzHvdaWOENdYPOk7pSuT5gxmg4OpBZL9fxFRA7A8CWr5GQMt/C+jtNQJaPSugOL181QM3+smP', 296, 100, 'Receiving Signal');
+		}),
+		this.addEntry('Information Queue', function()
+		{
+			return sb.createVertexTemplateFromData('1ZXRboMgFIafhsslCO2y3c7NXvVqT8D0rJAgEDyd+vY7VbrGzcYmW7r0woTz//zI+STCZF53m6iC3voKLJMvTObRexxHdZeDtUxwUzH5zITg9DBRnHGzweVBRXB4SUCMgQ9l9zAqo9Bgb5Owi34fRrX0zkGJ6u3o8RSHiNCd3cIgpfdvwNeAsacp3WSNflK1pkKd0kdNg9nptOQqaapJm/xa9tQsDVK/873L5d6pdVfBYX7G5FOrDcJrUOXBbembkaaxtsmOHhUa76jkVBIsVMZBTPVFqMQ8qmvgWC3joIAJDSyjeDfW5t76OOQk50XB+RTR3eNvoaTAtwOU/TxBc8TEHxBb3yix9b8Ru79RYg/XIkbl6ec/eJO74RM=', 296, 100, 'Receiving Signal');
+		}),
+		
+
+	]
+	this.addPaletteFunctions('O2DES', mxResources.get('O2DES'), (expand != null) ? expand : true, fns);
+	this.setCurrentSearchEntryLibrary();
+
+
+}
 
 /**
  * Adds the general palette to the sidebar.

@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "serve": "^14.2.1"
+  },
+  "dependencies": {
+    "mxgraph-js": "^1.0.1"
   }
 }

@@ -483,7 +483,7 @@
 		var year = new Date().getFullYear();
 
 		this.entries = [{title: mxResources.get('standard'), entries: stdEntries},
-						{title: mxResources.get('o2des'), entries: o2desEntries},
+						// {title: mxResources.get('o2des'), entries: o2desEntries},
             			{title: mxResources.get('software'),
             			entries: [{title: 'Active Directory', id: 'active_directory', image: IMAGE_PATH + '/sidebar-active_directory.png'},
 								{title: mxResources.get('android'), id: 'android', image: IMAGE_PATH + '/sidebar-android.png'},
@@ -538,7 +538,7 @@
 								{title: mxResources.get('procEng'), id: 'pid', image: IMAGE_PATH + '/sidebar-pid.png'},
 								{title: 'Threat Modeling', id: 'threatModeling', image: IMAGE_PATH + '/sidebar-threatmodeling.png'},
 								{title: 'Web Icons', id: 'webicons', image: IMAGE_PATH + '/sidebar-webIcons.png'},
-								{title: mxResources.get('o2des'), image: IMAGE_PATH + '/sidebar-ios.png'},
+								// {title: mxResources.get('o2des'), image: IMAGE_PATH + '/sidebar-ios.png'},
 								{title: mxResources.get('signs'), id: 'signs', image: IMAGE_PATH + '/sidebar-signs.png'}]}];
 
 	};
@@ -868,7 +868,7 @@
 			this.createdSearchIndex = [];
 		}
 
-		this.addSearchPalette(true);
+		// this.addSearchPalette(true);
 
 		if (!this.appendCustomLibraries)
 		{
@@ -876,8 +876,9 @@
 		}
 
 		this.addGeneralPalette(this.customEntries == null);
-		this.addMiscPalette(false);	
-		this.addAdvancedPalette(false);
+		this.addO2DESPalette(true, imgDir); // True or false for palette expnasion
+		// this.addMiscPalette(false);	
+		// this.addAdvancedPalette(false); // Adds advanced palette
 		this.addBasicPalette();
 		this.addStencilPalette('arrows', mxResources.get('arrows'), dir + '/arrows.xml',
 				';html=1;' + mxConstants.STYLE_VERTICAL_LABEL_POSITION + '=bottom;' + mxConstants.STYLE_VERTICAL_ALIGN + '=top;' + mxConstants.STYLE_STROKEWIDTH + '=2;strokeColor=#000000;',
@@ -886,9 +887,9 @@
 		// Debug for image directory
 		// console.log('Image directory: ' + imgDir);
 
-		this.setCurrentSearchEntryLibrary('O2DES', 'system')
-		// this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', ['grid', 'End'], ['Start', 'End']);
-		this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/o2des/', '_128x128.png', ['Tilde', 'Vertical_Equal']);
+		// this.setCurrentSearchEntryLibrary('O2DES', 'system')
+		// // this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', ['grid', 'End'], ['Start', 'End']);
+		// this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/o2des/', '_128x128.png', ['Tilde', 'Vertical_Equal']);
 		this.addArrows2Palette();
 		this.setCurrentSearchEntryLibrary('clipart', 'computer');
 		this.addImagePalette('computer', 'Clipart / Computer', imgDir
