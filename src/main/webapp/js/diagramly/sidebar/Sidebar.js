@@ -110,6 +110,7 @@
 	 * https://www.drawio.com/doc/faq/supported-url-parameters
 	 */
 	Sidebar.prototype.enabledLibraries = null;
+	// Sidebar.prototype.enabledLibraries = [];
 	
 	/**
 	 * Maximum number of custom libraries to preload into the search index.

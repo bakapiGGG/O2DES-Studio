@@ -709,7 +709,14 @@ App.main = function(callback, createUi)
 				{
 					var content = mxUtils.getTextContent(bootstrap);
 					
-					if (CryptoJS.MD5(content).toString() != '97d48990b1ef6de28697d2cc7083ca53')
+					// Change to the MD5 hash of the new content to avoid CSP errors
+					
+					// if (CryptoJS.MD5(content).toString() != '97d48990b1ef6de28697d2cc7083ca53')
+					// {
+					// 	console.log('Change bootstrap script MD5 in the previous line:', CryptoJS.MD5(content).toString());
+					// 	alert('[Dev] Bootstrap script change requires update of CSP');
+					// }
+					if (CryptoJS.MD5(content).toString() != 'f8508d8c2ee4b8b07daac619c8f3e369')
 					{
 						console.log('Change bootstrap script MD5 in the previous line:', CryptoJS.MD5(content).toString());
 						alert('[Dev] Bootstrap script change requires update of CSP');

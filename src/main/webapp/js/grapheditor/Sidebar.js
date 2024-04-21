@@ -37,7 +37,9 @@ function Sidebar(editorUi, container)
 	this.container.appendChild(this.wrapper);
 
 	var title = this.createMoreShapes();
-	this.container.appendChild(title);
+
+	// // Line below is commented out to hide the buttons of More Shapes 
+	// this.container.appendChild(title);
 
 	document.body.appendChild(this.graph.container);
 	
@@ -219,7 +221,9 @@ Sidebar.prototype.thumbBorder = 2;
 /**
  * Allows for two buttons in the sidebar footer.
  */
-Sidebar.prototype.moreShapesHeight = 52;
+// By setting the height to 0, the footer is hidden, we won't see the buttons
+// Sidebar.prototype.moreShapesHeight = 52;
+Sidebar.prototype.moreShapesButton = 0;
 
 /**
  * Whether live preview should be enabled. Default is true.
