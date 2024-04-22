@@ -4816,10 +4816,11 @@
 			}
 			else
 			{
-				if (urlParams['embed'] != '1' || urlParams['lang'] == null)
-				{
-					this.addSubmenu('language', menu, parent);
-				}
+				// // ZY: Comment out this if statement will disable the language submenu under the extras menu
+				// if (urlParams['embed'] != '1' || urlParams['lang'] == null)
+				// {
+				// 	this.addSubmenu('language', menu, parent);
+				// }
 				
 				if ((urlParams['embed'] != '1' || urlParams['atlas'] == '1') &&
 					Editor.currentTheme != 'atlas' && (Editor.isDarkMode() ||
@@ -4828,11 +4829,12 @@
 					editorUi.menus.addSubmenu('appearance', menu, parent);
 				}
 
-				if (urlParams['embed'] != '1' && urlParams['extAuth'] != '1' &&
-					editorUi.mode != App.MODE_ATLAS)
-				{
-					this.addSubmenu('theme', menu, parent);
-				}
+				// // ZY: Comment out this if statement will disable the theme submenu under the extras menu
+				// if (urlParams['embed'] != '1' && urlParams['extAuth'] != '1' &&
+				// 	editorUi.mode != App.MODE_ATLAS)
+				// {
+				// 	this.addSubmenu('theme', menu, parent);
+				// }
 
 				menu.addSeparator(parent);
 
@@ -4851,6 +4853,9 @@
 					this.addMenuItems(menu, ['googleFonts', 'spellCheck', 'autoBkp', 'drafts', '-'], parent);
 				}
 
+				/* ZY: By default, you can drag a connector from a shape and drop it on an empty area of the drawing canvas to have an unattached connector.
+				To create flows quickly, where there are a large number of the same shape connected, enable Copy on Connect.*/
+
 				this.addMenuItems(menu, ['copyConnect', 'collapseExpand', '-'], parent);
 				
 				if (urlParams['embed'] != '1')
@@ -4867,19 +4872,23 @@
 
 				menu.addSeparator(parent);
 				
-				if (!editorUi.isOfflineApp() && isLocalStorage)
-				{
-					this.addMenuItem(menu, 'plugins', parent);
-				}
+				// // ZY: Comment out this if statement will disable the plugins submenu under the extras menu
+				// if (!editorUi.isOfflineApp() && isLocalStorage)
+				// {
+				// 	this.addMenuItem(menu, 'plugins', parent);
+				// }
 
 				this.addMenuItems(menu, ['-', 'editDiagram'], parent);
-				this.addSubmenu('diagramLanguage', menu, parent);
+				// // ZY: Comment out this line will disable the diagramLanguage submenu under the extras menu
+				// this.addSubmenu('diagramLanguage', menu, parent);
 				menu.addSeparator(parent);
 
-				if (urlParams['embed'] != '1' && (isLocalStorage || mxClient.IS_CHROMEAPP))
-				{
-					this.addMenuItems(menu, ['showStartScreen'], parent);
-				}
+
+				// // ZY: Comment out this if statement will disable the show start menu submenu under the extras menu
+				// if (urlParams['embed'] != '1' && (isLocalStorage || mxClient.IS_CHROMEAPP))
+				// {
+				// 	this.addMenuItems(menu, ['showStartScreen'], parent);
+				// }
 
 				this.addMenuItems(menu, ['configuration'], parent);
 			}

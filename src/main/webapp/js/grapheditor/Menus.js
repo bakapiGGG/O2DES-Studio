@@ -541,6 +541,10 @@ Menus.prototype.init = function()
 			concat(['outline', 'layers', '-', 'pageView', 'pageScale', '-', 'tooltips',
 			        'grid', 'guides', '-', 'connectionArrows', 'connectionPoints', '-',
 			        'resetView', 'zoomIn', 'zoomOut'], parent));
+
+		// this.addMenuItems(menu, ((this.editorUi.format != null) ? ['format'] : []).
+		// concat(['outline', 'layers', '-', 'pageView', 'pageScale', '-', 'tooltips',
+		// 		'grid', 'guides', '-', ], parent));
 	})));
 	// Two special dropdowns that are only used in the toolbar
 	this.put('viewPanels', new Menu(mxUtils.bind(this, function(menu, parent)
