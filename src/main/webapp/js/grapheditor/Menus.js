@@ -32,14 +32,16 @@ Menus.prototype.defaultFontSize = '12';
  */
 // By adding and removing defaultMenuItems can add/remove menus from the menu bar
 // Menus.prototype.defaultMenuItems = ['file', 'edit', 'view', 'arrange', 'extras', 'help'];
-Menus.prototype.defaultMenuItems = ['file', 'edit', 'view',];
+Menus.prototype.defaultMenuItems = ['file', 'edit', 'view', 'arrange', 'extras'];
 
 
 /**
  * Adds the label menu items to the given menu and parent.
  */
-Menus.prototype.defaultFonts = ['Helvetica', 'Verdana', 'Times New Roman', 'Garamond', 'Comic Sans MS',
-           		             'Courier New', 'Georgia', 'Lucida Console', 'Tahoma'];
+// This will enable the available font families to be displayed in the font family dropdown under text formatting
+// Menus.prototype.defaultFonts = ['Helvetica', 'Verdana', 'Times New Roman', 'Garamond', 'Comic Sans MS',
+//            		             'Courier New', 'Georgia', 'Lucida Console', 'Tahoma'];
+Menus.prototype.defaultFonts = ['Helvetica', 'Verdana', 'Times New Roman', 'Georgia'];
 
 /**
  * Adds the label menu items to the given menu and parent.
