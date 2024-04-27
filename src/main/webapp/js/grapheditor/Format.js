@@ -6738,7 +6738,9 @@ DiagramFormatPanel.prototype.init = function()
 	if (graph.isEnabled())
 	{
 		this.container.appendChild(this.addOptions(this.createPanel()));
-		this.container.appendChild(this.addPaperSize(this.createPanel()));
+		// Commenting out to disable paper size options
+		// this.container.appendChild(this.addPaperSize(this.createPanel())); 
+		// Commenting out to disable style options (editData, and clear default style button)
 		this.container.appendChild(this.addStyleOps(this.createPanel()));
 	}
 };
