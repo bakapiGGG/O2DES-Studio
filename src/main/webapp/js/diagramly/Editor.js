@@ -210,7 +210,9 @@
 	/**
 	 * Disables the shadow option in the format panel.
 	 */
-	Editor.enableShadowOption = !mxClient.IS_SF;
+	// Editor.enableShadowOption = !mxClient.IS_SF;
+	Editor.enableShadowOption = false;
+
 
 	/**
 	 * Disables the export URL function.

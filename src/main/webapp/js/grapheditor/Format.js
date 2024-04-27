@@ -6752,10 +6752,10 @@ DiagramFormatPanel.prototype.addView = function(div)
 	var editor = ui.editor;
 	var graph = editor.graph;
 	
-	div.appendChild(this.createTitle(mxResources.get('view')));
+	// div.appendChild(this.createTitle(mxResources.get('view')));
 	
 	// Grid
-	this.addGridOption(div);
+	// this.addGridOption(div);
 	
 	// Page View
 	if (DiagramFormatPanel.showPageView)
@@ -6870,7 +6870,7 @@ DiagramFormatPanel.prototype.addView = function(div)
 		}, '#ffffff');
 
 		bgColor.style.padding = '5px 0 1px 0';
-		div.appendChild(bgColor);
+		// div.appendChild(bgColor);
 
 		var option = this.createOption(mxResources.get('shadow'), function()
 		{
@@ -6910,7 +6910,7 @@ DiagramFormatPanel.prototype.addView = function(div)
 		option.style.width = '100px';
 		option.style.maxWidth = '100px';
 		option.style.marginRight = '4px';
-		div.appendChild(option);
+		// div.appendChild(option);
 
 		var sketchOption = this.createOption(mxResources.get('sketch'), function()
 		{
@@ -6938,7 +6938,7 @@ DiagramFormatPanel.prototype.addView = function(div)
 		sketchOption.style.display = 'inline-flex';
 		sketchOption.style.width = '104px';
 		sketchOption.style.maxWidth = '104px';
-		div.appendChild(sketchOption);
+		// div.appendChild(sketchOption);
 	}
 	
 	return div;
