@@ -6715,7 +6715,8 @@ mxUtils.extend(DiagramFormatPanel, BaseFormatPanel);
 /**
  * Switch to disable page view.
  */
-DiagramFormatPanel.showPageView = true;
+// DiagramFormatPanel.showPageView = true;
+DiagramFormatPanel.showPageView = false;
 
 /**
  * Specifies if the background image option should be shown. Default is true.
