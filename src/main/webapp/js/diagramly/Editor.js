@@ -210,6 +210,7 @@
 	/**
 	 * Disables the shadow option in the format panel.
 	 */
+	// By setting it to false, will prevent the user from accessing the function via blocking out the option
 	// Editor.enableShadowOption = !mxClient.IS_SF;
 	Editor.enableShadowOption = false;
 
@@ -5590,318 +5591,318 @@
 		
 		/**
 		 * Creates the buttons for the predefined styles.
-		 */
-		StyleFormatPanel.prototype.addStyles = function(div)
-		{
-			if (this.defaultColorSchemes != null)
-			{
-				var ui = this.editorUi;
-				var graph = ui.editor.graph;
-				var picker = document.createElement('div');
-				picker.style.whiteSpace = 'nowrap';
-				picker.style.paddingLeft = '24px';
-				picker.style.paddingRight = '20px';
-				div.style.paddingLeft = '16px';
-				div.style.paddingBottom = '6px';
-				div.style.position = 'relative';
-				div.appendChild(picker);
+		//  */
+		// StyleFormatPanel.prototype.addStyles = function(div)
+		// {
+		// 	if (this.defaultColorSchemes != null)
+		// 	{
+		// 		var ui = this.editorUi;
+		// 		var graph = ui.editor.graph;
+		// 		var picker = document.createElement('div');
+		// 		picker.style.whiteSpace = 'nowrap';
+		// 		picker.style.paddingLeft = '24px';
+		// 		picker.style.paddingRight = '20px';
+		// 		div.style.paddingLeft = '16px';
+		// 		div.style.paddingBottom = '6px';
+		// 		div.style.position = 'relative';
+		// 		div.appendChild(picker);
 
-				var stylenames = ['plain-gray', 'plain-blue', 'plain-green', 'plain-turquoise',
-					'plain-orange', 'plain-yellow', 'plain-red', 'plain-pink', 'plain-purple', 'gray',
-					'blue', 'green', 'turquoise', 'orange', 'yellow', 'red', 'pink', 'purple'];
+		// 		var stylenames = ['plain-gray', 'plain-blue', 'plain-green', 'plain-turquoise',
+		// 			'plain-orange', 'plain-yellow', 'plain-red', 'plain-pink', 'plain-purple', 'gray',
+		// 			'blue', 'green', 'turquoise', 'orange', 'yellow', 'red', 'pink', 'purple'];
 				
-				// Maximum palettes to switch the switcher
-				var maxEntries = 10;
+		// 		// Maximum palettes to switch the switcher
+		// 		var maxEntries = 10;
 							
-				// Selector
-				var switcher = document.createElement('div');
-				switcher.style.whiteSpace = 'nowrap';
-				switcher.style.position = 'relative';
-				switcher.style.textAlign = 'center';
-				switcher.style.width = '210px';
+		// 		// Selector
+		// 		var switcher = document.createElement('div');
+		// 		switcher.style.whiteSpace = 'nowrap';
+		// 		switcher.style.position = 'relative';
+		// 		switcher.style.textAlign = 'center';
+		// 		switcher.style.width = '210px';
 				
-				var dots = [];
+		// 		var dots = [];
 				
-				for (var i = 0; i < this.defaultColorSchemes.length; i++)
-				{
-					var dot = document.createElement('div');
-					dot.style.display = 'inline-block';
-					dot.style.width = '6px';
-					dot.style.height = '6px';
-					dot.style.marginLeft = '4px';
-					dot.style.marginRight = '3px';
-					dot.style.borderRadius = '3px';
-					dot.style.cursor = 'pointer';
-					dot.style.background = 'transparent';
-					dot.style.border = '1px solid #b5b6b7';
+		// 		for (var i = 0; i < this.defaultColorSchemes.length; i++)
+		// 		{
+		// 			var dot = document.createElement('div');
+		// 			dot.style.display = 'inline-block';
+		// 			dot.style.width = '6px';
+		// 			dot.style.height = '6px';
+		// 			dot.style.marginLeft = '4px';
+		// 			dot.style.marginRight = '3px';
+		// 			dot.style.borderRadius = '3px';
+		// 			dot.style.cursor = 'pointer';
+		// 			dot.style.background = 'transparent';
+		// 			dot.style.border = '1px solid #b5b6b7';
 					
-					(mxUtils.bind(this, function(index)
-					{
-						mxEvent.addListener(dot, 'click', mxUtils.bind(this, function()
-						{
-							setScheme(index);
-						}));
-					}))(i);
+		// 			(mxUtils.bind(this, function(index)
+		// 			{
+		// 				mxEvent.addListener(dot, 'click', mxUtils.bind(this, function()
+		// 				{
+		// 					setScheme(index);
+		// 				}));
+		// 			}))(i);
 					
-					dots.push(dot);
-					switcher.appendChild(dot);
-				}
+		// 			dots.push(dot);
+		// 			switcher.appendChild(dot);
+		// 		}
 				
-				var setScheme = mxUtils.bind(this, function(index)
-				{
-					if (dots[index] != null)
-					{
-						if (this.format.currentScheme != null && dots[this.format.currentScheme] != null)
-						{
-							dots[this.format.currentScheme].style.background = 'transparent';
-						}
+		// 		var setScheme = mxUtils.bind(this, function(index)
+		// 		{
+		// 			if (dots[index] != null)
+		// 			{
+		// 				if (this.format.currentScheme != null && dots[this.format.currentScheme] != null)
+		// 				{
+		// 					dots[this.format.currentScheme].style.background = 'transparent';
+		// 				}
 						
-						this.format.currentScheme = index;
-						updateScheme(this.defaultColorSchemes[this.format.currentScheme]);
-						dots[this.format.currentScheme].style.background = '#84d7ff';
-					}
-				});
+		// 				this.format.currentScheme = index;
+		// 				updateScheme(this.defaultColorSchemes[this.format.currentScheme]);
+		// 				dots[this.format.currentScheme].style.background = '#84d7ff';
+		// 			}
+		// 		});
 				
-				var updateScheme = mxUtils.bind(this, function(colorsets)
-				{
-					var addButton = mxUtils.bind(this, function(colorset)
-					{
-						var btn = mxUtils.button('', mxUtils.bind(this, function(evt)
-						{
-							graph.getModel().beginUpdate();
-							try
-							{
-								var cells = ui.getSelectionState().cells;
+		// 		var updateScheme = mxUtils.bind(this, function(colorsets)
+		// 		{
+		// 			var addButton = mxUtils.bind(this, function(colorset)
+		// 			{
+		// 				var btn = mxUtils.button('', mxUtils.bind(this, function(evt)
+		// 				{
+		// 					graph.getModel().beginUpdate();
+		// 					try
+		// 					{
+		// 						var cells = ui.getSelectionState().cells;
 								
-								for (var i = 0; i < cells.length; i++)
-								{
-									var style = graph.getModel().getStyle(cells[i]);
+		// 						for (var i = 0; i < cells.length; i++)
+		// 						{
+		// 							var style = graph.getModel().getStyle(cells[i]);
 					
-									for (var j = 0; j < stylenames.length; j++)
-									{
-										style = mxUtils.removeStylename(style, stylenames[j]);
-									}
+		// 							for (var j = 0; j < stylenames.length; j++)
+		// 							{
+		// 								style = mxUtils.removeStylename(style, stylenames[j]);
+		// 							}
 
-									var defaults = (graph.getModel().isVertex(cells[i])) ? graph.defaultVertexStyle : graph.defaultEdgeStyle;
+		// 							var defaults = (graph.getModel().isVertex(cells[i])) ? graph.defaultVertexStyle : graph.defaultEdgeStyle;
 									
-									if (colorset != null)
-									{
-										if (!mxEvent.isShiftDown(evt))
-										{
-											if (colorset['fill'] == '')
-											{
-												style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR, null);
-											}
-											else
-											{
-												style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR, colorset['fill'] ||
-													mxUtils.getValue(defaults, mxConstants.STYLE_FILLCOLOR, null));
-											}
+		// 							if (colorset != null)
+		// 							{
+		// 								if (!mxEvent.isShiftDown(evt))
+		// 								{
+		// 									if (colorset['fill'] == '')
+		// 									{
+		// 										style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR, null);
+		// 									}
+		// 									else
+		// 									{
+		// 										style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR, colorset['fill'] ||
+		// 											mxUtils.getValue(defaults, mxConstants.STYLE_FILLCOLOR, null));
+		// 									}
 
-											style = mxUtils.setStyle(style, mxConstants.STYLE_GRADIENTCOLOR, colorset['gradient'] ||
-												mxUtils.getValue(defaults, mxConstants.STYLE_GRADIENTCOLOR, null));
+		// 									style = mxUtils.setStyle(style, mxConstants.STYLE_GRADIENTCOLOR, colorset['gradient'] ||
+		// 										mxUtils.getValue(defaults, mxConstants.STYLE_GRADIENTCOLOR, null));
 										
-											if (!mxEvent.isControlDown(evt) && (!mxClient.IS_MAC || !mxEvent.isMetaDown(evt)) &&
-												graph.getModel().isVertex(cells[i]))
-											{
-												style = mxUtils.setStyle(style, mxConstants.STYLE_FONTCOLOR, colorset['font'] ||
-													mxUtils.getValue(defaults, mxConstants.STYLE_FONTCOLOR, null));
-											}
-										}
+		// 									if (!mxEvent.isControlDown(evt) && (!mxClient.IS_MAC || !mxEvent.isMetaDown(evt)) &&
+		// 										graph.getModel().isVertex(cells[i]))
+		// 									{
+		// 										style = mxUtils.setStyle(style, mxConstants.STYLE_FONTCOLOR, colorset['font'] ||
+		// 											mxUtils.getValue(defaults, mxConstants.STYLE_FONTCOLOR, null));
+		// 									}
+		// 								}
 										
-										if (!mxEvent.isAltDown(evt))
-										{
-											if (colorset['stroke'] == '')
-											{
-												style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR, null);
-											}
-											else
-											{
-												style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR, colorset['stroke'] ||
-													mxUtils.getValue(defaults, mxConstants.STYLE_STROKECOLOR, null));
-											}
-										}
-									}
-									else
-									{
-										style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR,
-											mxUtils.getValue(defaults, mxConstants.STYLE_FILLCOLOR, '#ffffff'));
-										style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR,
-											mxUtils.getValue(defaults, mxConstants.STYLE_STROKECOLOR, '#000000'));
-										style = mxUtils.setStyle(style, mxConstants.STYLE_GRADIENTCOLOR,
-											mxUtils.getValue(defaults, mxConstants.STYLE_GRADIENTCOLOR, null));
+		// 								if (!mxEvent.isAltDown(evt))
+		// 								{
+		// 									if (colorset['stroke'] == '')
+		// 									{
+		// 										style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR, null);
+		// 									}
+		// 									else
+		// 									{
+		// 										style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR, colorset['stroke'] ||
+		// 											mxUtils.getValue(defaults, mxConstants.STYLE_STROKECOLOR, null));
+		// 									}
+		// 								}
+		// 							}
+		// 							else
+		// 							{
+		// 								style = mxUtils.setStyle(style, mxConstants.STYLE_FILLCOLOR,
+		// 									mxUtils.getValue(defaults, mxConstants.STYLE_FILLCOLOR, '#ffffff'));
+		// 								style = mxUtils.setStyle(style, mxConstants.STYLE_STROKECOLOR,
+		// 									mxUtils.getValue(defaults, mxConstants.STYLE_STROKECOLOR, '#000000'));
+		// 								style = mxUtils.setStyle(style, mxConstants.STYLE_GRADIENTCOLOR,
+		// 									mxUtils.getValue(defaults, mxConstants.STYLE_GRADIENTCOLOR, null));
 										
-										if (graph.getModel().isVertex(cells[i]))
-										{
-											style = mxUtils.setStyle(style, mxConstants.STYLE_FONTCOLOR,
-												mxUtils.getValue(defaults, mxConstants.STYLE_FONTCOLOR, null));
-										}
-									}
+		// 								if (graph.getModel().isVertex(cells[i]))
+		// 								{
+		// 									style = mxUtils.setStyle(style, mxConstants.STYLE_FONTCOLOR,
+		// 										mxUtils.getValue(defaults, mxConstants.STYLE_FONTCOLOR, null));
+		// 								}
+		// 							}
 
-									graph.getModel().setStyle(cells[i], style);
-								}
-							}
-							finally
-							{
-								graph.getModel().endUpdate();
-							}
-						}));
+		// 							graph.getModel().setStyle(cells[i], style);
+		// 						}
+		// 					}
+		// 					finally
+		// 					{
+		// 						graph.getModel().endUpdate();
+		// 					}
+		// 				}));
 		
-						btn.className = 'geStyleButton';
-						btn.style.width = '36px';
-						btn.style.height = (this.defaultColorSchemes.length <= maxEntries) ? '24px' : '30px';
-						btn.style.margin = '0px 6px 6px 0px';
+		// 				btn.className = 'geStyleButton';
+		// 				btn.style.width = '36px';
+		// 				btn.style.height = (this.defaultColorSchemes.length <= maxEntries) ? '24px' : '30px';
+		// 				btn.style.margin = '0px 6px 6px 0px';
 						
-						if (colorset != null)
-						{
-							var b = (Editor.isDarkMode()) ? '2px solid' : '1px solid';
+		// 				if (colorset != null)
+		// 				{
+		// 					var b = (Editor.isDarkMode()) ? '2px solid' : '1px solid';
 							
-							if (colorset['border'] != null)
-							{
-								b = colorset['border'];
-							}
+		// 					if (colorset['border'] != null)
+		// 					{
+		// 						b = colorset['border'];
+		// 					}
 							
-							if (colorset['gradient'] != null)
-							{
-								if (mxClient.IS_IE && (document.documentMode < 10))
-								{
-									btn.style.filter = 'progid:DXImageTransform.Microsoft.Gradient('+
-										'StartColorStr=\'' + colorset['fill'] +
-										'\', EndColorStr=\'' + colorset['gradient'] + '\', GradientType=0)';
-								}
-								else
-								{
-									btn.style.backgroundImage = 'linear-gradient(' + colorset['fill'] + ' 0px,' +
-										colorset['gradient'] + ' 100%)';
-								}
-							}
-							else if (colorset['fill'] == mxConstants.NONE)
-							{
-								btn.style.background = 'url(\'' + Dialog.prototype.noColorImage + '\')';
-							}
-							else if (colorset['fill'] == '')
-							{
-								btn.style.backgroundColor = mxUtils.getValue(graph.defaultVertexStyle,
-									mxConstants.STYLE_FILLCOLOR, (Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
-							}
-							else
-							{
-								btn.style.backgroundColor = colorset['fill'] || mxUtils.getValue(graph.defaultVertexStyle,
-									mxConstants.STYLE_FILLCOLOR, (Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
-							}
+		// 					if (colorset['gradient'] != null)
+		// 					{
+		// 						if (mxClient.IS_IE && (document.documentMode < 10))
+		// 						{
+		// 							btn.style.filter = 'progid:DXImageTransform.Microsoft.Gradient('+
+		// 								'StartColorStr=\'' + colorset['fill'] +
+		// 								'\', EndColorStr=\'' + colorset['gradient'] + '\', GradientType=0)';
+		// 						}
+		// 						else
+		// 						{
+		// 							btn.style.backgroundImage = 'linear-gradient(' + colorset['fill'] + ' 0px,' +
+		// 								colorset['gradient'] + ' 100%)';
+		// 						}
+		// 					}
+		// 					else if (colorset['fill'] == mxConstants.NONE)
+		// 					{
+		// 						btn.style.background = 'url(\'' + Dialog.prototype.noColorImage + '\')';
+		// 					}
+		// 					else if (colorset['fill'] == '')
+		// 					{
+		// 						btn.style.backgroundColor = mxUtils.getValue(graph.defaultVertexStyle,
+		// 							mxConstants.STYLE_FILLCOLOR, (Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
+		// 					}
+		// 					else
+		// 					{
+		// 						btn.style.backgroundColor = colorset['fill'] || mxUtils.getValue(graph.defaultVertexStyle,
+		// 							mxConstants.STYLE_FILLCOLOR, (Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
+		// 					}
 							
-							if (colorset['stroke'] == mxConstants.NONE)
-							{
-								btn.style.border = b + ' transparent';
-							}
-							else if (colorset['stroke'] == '')
-							{
-								btn.style.border = b + ' ' + mxUtils.getValue(graph.defaultVertexStyle, 
-									mxConstants.STYLE_STROKECOLOR, (!Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
-							}
-							else
-							{
-								btn.style.border = b + ' ' + (colorset['stroke'] || mxUtils.getValue(graph.defaultVertexStyle,
-										mxConstants.STYLE_STROKECOLOR, (!Editor.isDarkMode()) ? Editor.darkColor : '#ffffff'));
-							}
+		// 					if (colorset['stroke'] == mxConstants.NONE)
+		// 					{
+		// 						btn.style.border = b + ' transparent';
+		// 					}
+		// 					else if (colorset['stroke'] == '')
+		// 					{
+		// 						btn.style.border = b + ' ' + mxUtils.getValue(graph.defaultVertexStyle, 
+		// 							mxConstants.STYLE_STROKECOLOR, (!Editor.isDarkMode()) ? Editor.darkColor : '#ffffff');
+		// 					}
+		// 					else
+		// 					{
+		// 						btn.style.border = b + ' ' + (colorset['stroke'] || mxUtils.getValue(graph.defaultVertexStyle,
+		// 								mxConstants.STYLE_STROKECOLOR, (!Editor.isDarkMode()) ? Editor.darkColor : '#ffffff'));
+		// 					}
 
-							if (colorset['title'] != null)
-							{
-								btn.setAttribute('title', colorset['title']);
-							}
-						}
-						else
-						{
-							var bg = mxUtils.getValue(graph.defaultVertexStyle, mxConstants.STYLE_FILLCOLOR, '#ffffff');
-							var bd = mxUtils.getValue(graph.defaultVertexStyle, mxConstants.STYLE_STROKECOLOR, '#000000');
+		// 					if (colorset['title'] != null)
+		// 					{
+		// 						btn.setAttribute('title', colorset['title']);
+		// 					}
+		// 				}
+		// 				else
+		// 				{
+		// 					var bg = mxUtils.getValue(graph.defaultVertexStyle, mxConstants.STYLE_FILLCOLOR, '#ffffff');
+		// 					var bd = mxUtils.getValue(graph.defaultVertexStyle, mxConstants.STYLE_STROKECOLOR, '#000000');
 							
-							btn.style.backgroundColor = bg;
-							btn.style.border = '1px solid ' + bd;
-						}
+		// 					btn.style.backgroundColor = bg;
+		// 					btn.style.border = '1px solid ' + bd;
+		// 				}
 
-						btn.style.borderRadius = '0';
+		// 				btn.style.borderRadius = '0';
 						
-						picker.appendChild(btn);
-					});
+		// 				picker.appendChild(btn);
+		// 			});
 					
-					picker.innerText = '';
+		// 			picker.innerText = '';
 					
-					if (colorsets != null)
-					{
-						for (var i = 0; i < colorsets.length; i++)
-						{
-							if (i > 0 && mxUtils.mod(i, 4) == 0)
-							{
-								mxUtils.br(picker);
-							}
+		// 			if (colorsets != null)
+		// 			{
+		// 				for (var i = 0; i < colorsets.length; i++)
+		// 				{
+		// 					if (i > 0 && mxUtils.mod(i, 4) == 0)
+		// 					{
+		// 						mxUtils.br(picker);
+		// 					}
 							
-							addButton(colorsets[i]);
-						}
-					}
-				});
+		// 					addButton(colorsets[i]);
+		// 				}
+		// 			}
+		// 		});
 
-				if (this.format.currentScheme == null)
-				{
-					setScheme(Math.min(dots.length - 1, Editor.isDarkMode()
-						? 1 : (urlParams['sketch'] == '1' ? 5 : 0)));
-				}
-				else
-				{
-					setScheme(this.format.currentScheme);
-				}
+		// 		if (this.format.currentScheme == null)
+		// 		{
+		// 			setScheme(Math.min(dots.length - 1, Editor.isDarkMode()
+		// 				? 1 : (urlParams['sketch'] == '1' ? 5 : 0)));
+		// 		}
+		// 		else
+		// 		{
+		// 			setScheme(this.format.currentScheme);
+		// 		}
 				
-				var bottom = (this.defaultColorSchemes.length <= maxEntries) ? 28 : 8;
+		// 		var bottom = (this.defaultColorSchemes.length <= maxEntries) ? 28 : 8;
 
-				var left = document.createElement('div');
-				left.style.cssText = 'position:absolute;left:10px;top:8px;bottom:' + bottom + 'px;width:20px;margin:4px;opacity:0.5;' +
-					'background-repeat:no-repeat;background-position:center center;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQBAMAAADQT4M0AAAAIVBMVEUAAAB2dnZ4eHh3d3d1dXVxcXF2dnZ2dnZ2dnZxcXF2dnYmb3w1AAAACnRSTlMAfCTkhhvb7cQSPH2JPgAAADRJREFUCNdjwACMAmBKaiGYs2oJmLPKAZ3DabU8AMRTXpUKopislqFyVzCAuUZgikkBZjoAcMYLnp53P/UAAAAASUVORK5CYII=);';
+		// 		var left = document.createElement('div');
+		// 		left.style.cssText = 'position:absolute;left:10px;top:8px;bottom:' + bottom + 'px;width:20px;margin:4px;opacity:0.5;' +
+		// 			'background-repeat:no-repeat;background-position:center center;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQBAMAAADQT4M0AAAAIVBMVEUAAAB2dnZ4eHh3d3d1dXVxcXF2dnZ2dnZ2dnZxcXF2dnYmb3w1AAAACnRSTlMAfCTkhhvb7cQSPH2JPgAAADRJREFUCNdjwACMAmBKaiGYs2oJmLPKAZ3DabU8AMRTXpUKopislqFyVzCAuUZgikkBZjoAcMYLnp53P/UAAAAASUVORK5CYII=);';
 				
-				mxEvent.addListener(left, 'click', mxUtils.bind(this, function()
-				{
-					setScheme(mxUtils.mod(this.format.currentScheme - 1, this.defaultColorSchemes.length));
-				}));
+		// 		mxEvent.addListener(left, 'click', mxUtils.bind(this, function()
+		// 		{
+		// 			setScheme(mxUtils.mod(this.format.currentScheme - 1, this.defaultColorSchemes.length));
+		// 		}));
 				
-				var right = document.createElement('div');
-				right.style.cssText = 'position:absolute;left:202px;top:8px;bottom:' + bottom + 'px;width:20px;margin:4px;opacity:0.5;' +
-					'background-repeat:no-repeat;background-position:center center;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQBAMAAADQT4M0AAAAIVBMVEUAAAB2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnYBuwCcAAAACnRSTlMAfCTkhhvb7cQSPH2JPgAAADZJREFUCNdjQAOMAmBKaiGY8loF5rKswsZlrVo8AUiFrTICcbIWK8A5DF1gDoMymMPApIAwHwCS0Qx/U7qCBQAAAABJRU5ErkJggg==);';
+		// 		var right = document.createElement('div');
+		// 		right.style.cssText = 'position:absolute;left:202px;top:8px;bottom:' + bottom + 'px;width:20px;margin:4px;opacity:0.5;' +
+		// 			'background-repeat:no-repeat;background-position:center center;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQBAMAAADQT4M0AAAAIVBMVEUAAAB2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnYBuwCcAAAACnRSTlMAfCTkhhvb7cQSPH2JPgAAADZJREFUCNdjQAOMAmBKaiGY8loF5rKswsZlrVo8AUiFrTICcbIWK8A5DF1gDoMymMPApIAwHwCS0Qx/U7qCBQAAAABJRU5ErkJggg==);';
 
-				if (this.defaultColorSchemes.length > 1)
-				{
-					div.appendChild(left);
-					div.appendChild(right);
-				}
+		// 		if (this.defaultColorSchemes.length > 1)
+		// 		{
+		// 			div.appendChild(left);
+		// 			div.appendChild(right);
+		// 		}
 				
-				mxEvent.addListener(right, 'click', mxUtils.bind(this, function()
-				{
-					setScheme(mxUtils.mod(this.format.currentScheme + 1, this.defaultColorSchemes.length));
-				}));
+		// 		mxEvent.addListener(right, 'click', mxUtils.bind(this, function()
+		// 		{
+		// 			setScheme(mxUtils.mod(this.format.currentScheme + 1, this.defaultColorSchemes.length));
+		// 		}));
 				
-				// Hover state
-				function addHoverState(elt)
-				{
-					mxEvent.addListener(elt, 'mouseenter', function()
-					{
-						elt.style.opacity = '1';
-					});
-					mxEvent.addListener(elt, 'mouseleave', function()
-					{
-						elt.style.opacity = '0.5';
-					});
-				};
+		// 		// Hover state
+		// 		function addHoverState(elt)
+		// 		{
+		// 			mxEvent.addListener(elt, 'mouseenter', function()
+		// 			{
+		// 				elt.style.opacity = '1';
+		// 			});
+		// 			mxEvent.addListener(elt, 'mouseleave', function()
+		// 			{
+		// 				elt.style.opacity = '0.5';
+		// 			});
+		// 		};
 				
-				addHoverState(left);
-				addHoverState(right);
+		// 		addHoverState(left);
+		// 		addHoverState(right);
 				
-				updateScheme(this.defaultColorSchemes[this.format.currentScheme]);
+		// 		updateScheme(this.defaultColorSchemes[this.format.currentScheme]);
 				
-				if (this.defaultColorSchemes.length <= maxEntries)
-				{
-					div.appendChild(switcher);
-				}
-			}
+		// 		if (this.defaultColorSchemes.length <= maxEntries)
+		// 		{
+		// 			div.appendChild(switcher);
+		// 		}
+		// 	}
 			
-			return div;
-		};
+		// 	return div;
+		// };
 	}
 	
 	/**
