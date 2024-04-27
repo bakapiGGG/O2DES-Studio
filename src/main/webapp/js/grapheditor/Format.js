@@ -6721,7 +6721,8 @@ DiagramFormatPanel.showPageView = false;
 /**
  * Specifies if the background image option should be shown. Default is true.
  */
-DiagramFormatPanel.prototype.showBackgroundImageOption = true;
+// DiagramFormatPanel.prototype.showBackgroundImageOption = true;
+DiagramFormatPanel.prototype.showBackgroundImageOption = false;
 
 /**
  * Adds the label menu items to the given menu and parent.
