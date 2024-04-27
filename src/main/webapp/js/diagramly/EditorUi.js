@@ -3349,9 +3349,11 @@
 	/**
 	 * 
 	 */
+	// By returning false, we can disable the scratchpad option
 	EditorUi.prototype.isScratchpadEnabled = function()
 	{
-		return isLocalStorage || mxClient.IS_CHROMEAPP;
+		// return isLocalStorage || mxClient.IS_CHROMEAPP;
+		return false;
 	};
 
 	/**

@@ -23,8 +23,8 @@ EditorUi.prototype.isSettingsEnabled = function()
 // Enables scratchpad
 EditorUi.prototype.isScratchpadEnabled = function()
 {
-    return true;
-	// return false;
+    // return true;
+	return false;
 };
 
 // Workaround for tainted canvas is to base64 encode the image on the server-side
