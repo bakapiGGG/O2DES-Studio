@@ -5475,6 +5475,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 		}
 	}));
 
+	// addArrow basically just create a nice div with image, user still can select linestart or lineend even though with commenting out
 	this.addArrow(edgeShape);
 	this.addArrow(edgeStyle).style.marginTop = '-1px';
 	this.addArrow(lineStart);
@@ -5521,7 +5522,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	span.style.marginTop = '2px';
 	span.style.fontWeight = 'normal';
 	
-	mxUtils.write(span, mxResources.get('lineend'));
+	mxUtils.write(span, mxResources.get('lineend')); // Line End Label
 	arrowPanel.appendChild(span);
 	
 	var endSpacingUpdate, endSizeUpdate;
@@ -5541,7 +5542,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	arrowPanel.appendChild(spacer);
 	
 	span = span.cloneNode(false);
-	mxUtils.write(span, mxResources.get('linestart'));
+	mxUtils.write(span, mxResources.get('linestart')); // Line Start Label
 	arrowPanel.appendChild(span);
 	
 	var startSpacingUpdate, startSizeUpdate;

@@ -1543,7 +1543,7 @@ Sidebar.prototype.addO2DESPalette = function(expand)
 	fns = [
 		this.createVertexTemplateEntry('rounded=0;whiteSpace=wrap;html=1;fillColor=#647687', 120, 60, '', 'Module/System', null, null, 'rect rectangle box'),
 	 	this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;fillColor=#647687', 120, 60, '', 'Activity', null, null, 'rounded rect rectangle box'),
-		 this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;fillColor=#97D077;strokeColor=#97D077', 120, 60, '', 'Resource', null, null, 'rounded rect rectangle box'),
+		this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;fillColor=#97D077;strokeColor=#97D077', 120, 60, '', 'Resource', null, null, 'rounded rect rectangle box'),
 		this.createVertexTemplateEntry('ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff', 120, 80, '', 'Event/Function', null, null, 'oval ellipse state'),
 		this.createVertexTemplateEntry('shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#B3B3B3;strokeColor=#B3B3B3', 120, 80, '', 'Entity Entering System'),
 		this.addEntry('Entity Leaving System', function()
