@@ -1536,6 +1536,7 @@ mxUtils.extend(ArrangePanel, BaseFormatPanel);
 /**
  * Adds the label menu items to the given menu and parent.
  */
+// Edit the arrange panel when you click the elements
 ArrangePanel.prototype.init = function()
 {
 	var ss = this.editorUi.getSelectionState();
@@ -1548,6 +1549,7 @@ ArrangePanel.prototype.init = function()
 		this.addGeometry(this.container);
 		this.addEdgeGeometry(this.container);
 	
+		// When the rectangle is selected, the following options are added, otherwise like edge, angle won't be added
 		if (!ss.containsLabel || ss.edges.length == 0)
 		{
 			this.container.appendChild(this.addAngle(this.createPanel()));
@@ -1594,6 +1596,7 @@ ArrangePanel.prototype.init = function()
 /**
  * 
  */
+// Add table options under arrange panel for certain elements like UML Class 2
 ArrangePanel.prototype.addTable = function(div)
 {
 	var ui = this.editorUi;
@@ -1808,7 +1811,7 @@ ArrangePanel.prototype.addTable = function(div)
 };
 
 /**
- * 
+ *  To Front, To Back, Bring Forward, Send Backward buttons
  */
 ArrangePanel.prototype.addLayerOps = function(div)
 {
@@ -1819,7 +1822,7 @@ ArrangePanel.prototype.addLayerOps = function(div)
 };
 
 /**
- * 
+ *  Group, Ungroup, Remove from Group, Copy Size, Paste Size, Swap, Reset, Clear Waypoints, Clear Connection Points, Lock/Unlock normally at bottom
  */
 ArrangePanel.prototype.addGroupOps = function(div)
 {
@@ -2956,7 +2959,7 @@ TextFormatPanel.prototype.addFontOps = function(div)
 
 
 /**
- * Adds the label menu items to the given menu and parent.
+ * Adds the label menu items to the given menu and parent., under the text menu
  */
 TextFormatPanel.prototype.addFont = function(container)
 {
@@ -6948,7 +6951,7 @@ DiagramFormatPanel.prototype.addView = function(div)
 };
 
 /**
- * Adds the label menu items to the given menu and parent.
+ * Adds the label menu items to the given menu and parent. This is the diagram tab
  */
 DiagramFormatPanel.prototype.addOptions = function(div)
 {

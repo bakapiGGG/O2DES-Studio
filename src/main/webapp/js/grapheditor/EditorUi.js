@@ -972,7 +972,7 @@ mxUtils.extend(EditorUi, mxEventSource);
 EditorUi.prototype.splitSize = (mxClient.IS_TOUCH || mxClient.IS_POINTER) ? 12 : 8;
 
 /**
- * Specifies the height of the menubar. Default is 30.
+ * Specifies the height of the menubar. Default is 30. Set this to 0 if the menubar should be hidden.
  */
 EditorUi.prototype.menubarHeight = 30;
 
@@ -987,12 +987,12 @@ EditorUi.prototype.formatEnabled = true;
 EditorUi.prototype.formatWidth = 240;
 
 /**
- * Specifies the height of the toolbar. Default is 38.
+ * Specifies the height of the toolbar. Default is 38. Set this to 0 if the toolbar should be disabled.
  */
 EditorUi.prototype.toolbarHeight = 38;
 
 /**
- * Specifies the height of the footer. Default is 28.
+ * Specifies the height of the footer. Default is 28. 
  */
 EditorUi.prototype.footerHeight = 28;
 
