@@ -191,7 +191,7 @@ Format.prototype.immediateRefresh = function()
 	label.style.textAlign = 'center';
 	label.style.fontWeight = 'bold';
 	label.style.paddingTop = '8px';
-	label.style.fontSize = '13px';
+	label.style.fontSize = '15px'; // Originally was 13px
 	label.style.borderWidth = '0px 0px 1px 1px';
 	label.style.borderStyle = 'solid';
 	label.style.display = 'inline-block';
@@ -287,25 +287,26 @@ Format.prototype.immediateRefresh = function()
 		if (Editor.styles != null)
 		{
 			diagramPanel.style.display = 'none';
-			label.style.width = (this.showCloseButton) ? '106px' : '50%';
+			label.style.width = (this.showCloseButton) ? '90%' : '50%';
 			label.style.cursor = 'pointer';
 			label.style.backgroundColor = Format.inactiveTabBackgroundColor;
 			
-			var label2 = label.cloneNode(false);
-			label2.style.borderLeftWidth = '1px';
-			label2.style.borderRightWidth = '1px';
-			label2.style.backgroundColor = Format.inactiveTabBackgroundColor;
+			// var label2 = label.cloneNode(false);
+			// label2.style.borderLeftWidth = '1px';
+			// label2.style.borderRightWidth = '1px';
+			// label2.style.backgroundColor = Format.inactiveTabBackgroundColor;
 			
 			addClickHandler(label, diagramPanel, idx++);
 			
-			var stylePanel = div.cloneNode(false);
-			stylePanel.style.display = 'none';
-			mxUtils.write(label2, mxResources.get('style'));
-			div.appendChild(label2);
-			this.panels.push(new DiagramStylePanel(this, ui, stylePanel));
-			this.container.appendChild(stylePanel);
+			// Style panel when nothing is selected
+			// var stylePanel = div.cloneNode(false);
+			// stylePanel.style.display = 'none';
+			// mxUtils.write(label2, mxResources.get('style'));
+			// div.appendChild(label2);
+			// this.panels.push(new DiagramStylePanel(this, ui, stylePanel));
+			// this.container.appendChild(stylePanel);
 			
-			addClickHandler(label2, stylePanel, idx++);
+			// addClickHandler(label2, stylePanel, idx++);
 		}
 		
 		// Adds button to hide the format panel since
@@ -356,17 +357,20 @@ Format.prototype.immediateRefresh = function()
 	}
 	else
 	{
+		// Need to comment out all label3 related code to hide the arrange panel
 		label.style.backgroundColor = Format.inactiveTabBackgroundColor;
 		label.style.borderLeftWidth = '1px';
 		label.style.cursor = 'pointer';
-		label.style.width = ss.cells.length == 0 ? '100%' :
-			(containsLabel ? '50%' : '33.3%');
+		// label.style.width = ss.cells.length == 0 ? '100%' :
+		// 	(containsLabel ? '50%' : '33.3%');
+		label.style.width = ss.cells.length == 0 ? '100%' : '50%'; // Originally was 33.3%, set the width of the label to 50% of its parent element's width.
+			
 		var label2 = label.cloneNode(false);
-		var label3 = label2.cloneNode(false);
+		// var label3 = label2.cloneNode(false);
 
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = Format.inactiveTabBackgroundColor;
-		label3.style.backgroundColor = Format.inactiveTabBackgroundColor;
+		// label3.style.backgroundColor = Format.inactiveTabBackgroundColor;
 		
 		// Style
 		if (containsLabel)
@@ -397,8 +401,9 @@ Format.prototype.immediateRefresh = function()
 		this.container.appendChild(textPanel);
 		
 		// Arrange
-		mxUtils.write(label3, mxResources.get('arrange'));
-		div.appendChild(label3);
+		// mxUtils.write(label3, mxResources.get('arrange'));
+		// By comment this line, the arrange panel will be hidden
+		// div.appendChild(label3);
 
 		var arrangePanel = div.cloneNode(false);
 		arrangePanel.style.display = 'none';
@@ -414,7 +419,7 @@ Format.prototype.immediateRefresh = function()
 			label2.style.display = 'none';
 		}
 		
-		addClickHandler(label3, arrangePanel, idx++, true);
+		// addClickHandler(label3, arrangePanel, idx++, true);
 	}
 };
 
@@ -6020,7 +6025,14 @@ StyleFormatPanel.prototype.addEffects = function(div)
 
 		if (ss.edges.length > 0 && ss.vertices.length == 0)
 		{
+			// This will enable/disable the checkbox for flow Animation
 			addOption(mxResources.get('flowAnimation', null, 'Flow Animation'), 'flowAnimation', 0);
+		}
+
+		if (ss.edges.length > 0 && ss.vertices.length == 0)
+		{
+			// This will enable/disable the checkbox for flow Animation
+			addOption(mxResources.get('flowAnimation', null, 'Flow Animation'), 'flowAnimation', 1);
 		}
 	});
 	

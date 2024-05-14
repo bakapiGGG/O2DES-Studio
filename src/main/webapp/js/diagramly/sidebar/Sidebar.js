@@ -189,19 +189,19 @@
 	/**
 	 * Refreshes scratchpad.
 	 */
-	var sidebarRefresh = Sidebar.prototype.refresh;
-	Sidebar.prototype.refresh = function()
-	{
-		var ui = this.editorUi;
-		sidebarRefresh.apply(this, arguments);
+	// var sidebarRefresh = Sidebar.prototype.refresh;
+	// Sidebar.prototype.refresh = function()
+	// {
+	// 	var ui = this.editorUi;
+	// 	sidebarRefresh.apply(this, arguments);
 
-		if (ui.scratchpad != null)
-		{
-			ui.loadLibrary(new StorageLibrary(ui,
-				ui.scratchpad.getData(),
-				'.scratchpad'));
-		}
-	};
+	// 	if (ui.scratchpad != null)
+	// 	{
+	// 		ui.loadLibrary(new StorageLibrary(ui,
+	// 			ui.scratchpad.getData(),
+	// 			'.scratchpad'));
+	// 	}
+	// };
 	
 	/**
 	 * Toggle palette.
@@ -472,18 +472,20 @@
 
 		var o2desEntries = [{title: mxResources.get('o2des'), id: 'o2des', image: IMAGE_PATH + '/sidebar-basic.png'}];
 		
-		if (Editor.currentTheme == 'sketch' ||
-			Editor.currentTheme == 'min')
-		{
-			stdEntries = [{title: mxResources.get('searchShapes'), id: 'search'},
-				{title: mxResources.get('scratchpad'), id: '.scratchpad'}].
-				concat(stdEntries);
-		}
+		// Scratchpad
+		// if (Editor.currentTheme == 'sketch' ||
+		// 	Editor.currentTheme == 'min')
+		// {
+		// 	stdEntries = [{title: mxResources.get('searchShapes'), id: 'search'},
+		// 		{title: mxResources.get('scratchpad'), id: '.scratchpad'}].
+		// 		concat(stdEntries);
+		// }
 
 		// Get current year as yyyy
 		var year = new Date().getFullYear();
 
-		this.entries = [{title: mxResources.get('standard'), entries: stdEntries},
+		this.entries = [
+						// {title: mxResources.get('standard'), entries: stdEntries},
 						// {title: mxResources.get('o2des'), entries: o2desEntries},
             			{title: mxResources.get('software'),
             			entries: [{title: 'Active Directory', id: 'active_directory', image: IMAGE_PATH + '/sidebar-active_directory.png'},
