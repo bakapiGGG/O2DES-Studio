@@ -3041,9 +3041,11 @@ TextFormatPanel.prototype.addFont = function(container)
 	fontStyleItems[2].setAttribute('title', mxResources.get('underline') + ' (' + this.editorUi.actions.get('underline').shortcut + ')');
 	
 	var verticalItem = this.editorUi.toolbar.addItems(['vertical'], stylePanel2, true)[0];
-	
+
+	// stylePanel2 is the second button rows panel in the text format panel (bold, italic, underline, vertical, font size)
 	container.appendChild(stylePanel2);
 
+	// Button styling
 	this.styleButtons(fontStyleItems);
 	this.styleButtons([verticalItem]);
 	
@@ -3111,6 +3113,7 @@ TextFormatPanel.prototype.addFont = function(container)
 		this.styleButtons([strike]);
 	}
 	
+	// Top aligned, middle aligned, bottom aligned buttons
 	var top = this.editorUi.toolbar.addButton('geSprite-top', mxResources.get('top'),
 		callFn(this.editorUi.menus.createStyleChangeFunction([mxConstants.STYLE_VERTICAL_ALIGN],
 			[mxConstants.ALIGN_TOP])), stylePanel3);
@@ -3242,6 +3245,7 @@ TextFormatPanel.prototype.addFont = function(container)
 		positionSelect.appendChild(positionOption);
 	}
 
+	// Update positions in text editor if selected in format panel
 	stylePanel4.appendChild(positionSelect);
 	
 	// Writing direction
@@ -3304,7 +3308,8 @@ TextFormatPanel.prototype.addFont = function(container)
 	
 	if (!graph.isEditing())
 	{
-		container.appendChild(stylePanel4);
+		// Container for text positions options
+		// container.appendChild(stylePanel4);
 		
 		mxEvent.addListener(positionSelect, 'change', function(evt)
 		{
@@ -3331,7 +3336,8 @@ TextFormatPanel.prototype.addFont = function(container)
 
 		// LATER: Update dir in text editor while editing and update style with label
 		// NOTE: The tricky part is handling and passing on the auto value
-		container.appendChild(stylePanel5);
+		// Writing direction options
+		// container.appendChild(stylePanel5);
 		
 		mxEvent.addListener(dirSelect, 'change', function(evt)
 		{
@@ -3653,7 +3659,8 @@ TextFormatPanel.prototype.addFont = function(container)
 	panel.style.fontWeight = 'bold';
 	
 	colorPanel.appendChild(panel);
-	colorPanel.appendChild(bgPanel);
+	// Comment line below will hide background colour
+	// colorPanel.appendChild(bgPanel);
 	
 	var textShadow = this.createCellOption(mxResources.get('shadow'),
 		mxConstants.STYLE_TEXT_SHADOW, 0);
@@ -3666,11 +3673,12 @@ TextFormatPanel.prototype.addFont = function(container)
 		mxUtils.setOpacity(textShadow, 60);
 	}
 	
-	if (!graph.cellEditor.isContentEditing())
-	{
-		colorPanel.appendChild(borderPanel);
-		colorPanel.appendChild(textShadow);
-	}
+	// Comment linme below will hide shadow options and change border colour
+	// if (!graph.cellEditor.isContentEditing())
+	// {
+	// 	colorPanel.appendChild(borderPanel);
+	// 	colorPanel.appendChild(textShadow);
+	// }
 
 	container.appendChild(colorPanel);
 
@@ -3692,6 +3700,7 @@ TextFormatPanel.prototype.addFont = function(container)
 	wwOpt.style.fontWeight = 'bold';
 	
 	// Word wrap in edge labels only supported via labelWidth style
+	// Comment out line below will hide word wrap, but will leave the top and bottom border, which is not good, best way is to comment out extraPanel
 	if (wwCells.length > 0)
 	{
 		extraPanel.appendChild(wwOpt);
@@ -3701,6 +3710,7 @@ TextFormatPanel.prototype.addFont = function(container)
 	var htmlOpt = this.createCellOption(mxResources.get('formattedText'), 'html', 0,
 		null, null, null, ui.actions.get('formattedText'));
 	htmlOpt.style.fontWeight = 'bold';
+	// Comment line below will hide formatted text
 	extraPanel.appendChild(htmlOpt);
 	
 	var spacingPanel = this.createPanel();
@@ -3708,6 +3718,7 @@ TextFormatPanel.prototype.addFont = function(container)
 	spacingPanel.style.paddingBottom = '28px';
 	spacingPanel.style.fontWeight = 'normal';
 	
+	// Spacing label
 	var span = document.createElement('div');
 	span.style.position = 'absolute';
 	span.style.width = '70px';
@@ -3745,16 +3756,16 @@ TextFormatPanel.prototype.addFont = function(container)
 		rightUpdate.apply(this, arguments);
 	});
 
-	mxUtils.br(spacingPanel);
+	mxUtils.br(spacingPanel); // br is line break
 	this.addLabel(spacingPanel, mxResources.get('left'), 158, 64);
 	this.addLabel(spacingPanel, mxResources.get('bottom'), 87, 64);
 	this.addLabel(spacingPanel, mxResources.get('right'), 16, 64);
 	
 	if (!graph.cellEditor.isContentEditing())
 	{
-		container.appendChild(extraPanel);
-		container.appendChild(this.createRelativeOption(mxResources.get('opacity'), mxConstants.STYLE_TEXT_OPACITY));
-		container.appendChild(spacingPanel);
+		// container.appendChild(extraPanel); // Comment line below will hide extra panel
+		// container.appendChild(this.createRelativeOption(mxResources.get('opacity'), mxConstants.STYLE_TEXT_OPACITY)); // This will hide opacity
+		// container.appendChild(spacingPanel); // Comment line below will hide spacing panel
 	}
 	else
 	{
@@ -4603,12 +4614,13 @@ StyleFormatPanel.prototype.init = function()
 		}
 	
 		this.container.appendChild(this.addStroke(this.createPanel()));
-		this.container.appendChild(this.addLineJumps(this.createPanel()));
+		// this.container.appendChild(this.addLineJumps(this.createPanel())); // To add Line Jump panel
 		var opacityPanel = this.createRelativeOption(mxResources.get('opacity'), mxConstants.STYLE_OPACITY);
 		opacityPanel.style.paddingTop = '8px';
 		opacityPanel.style.paddingBottom = '10px';
-		this.container.appendChild(opacityPanel);
-		this.container.appendChild(this.addEffects(this.createPanel()));
+		// this.container.appendChild(opacityPanel); // Hide opacity panel
+		// this.container.appendChild(this.addEffects(this.createPanel())); // Hide sketch and shadow options
+		this.container.appendChild(this.addEffects(this.createPanel())); // Test
 	}
 
 	var opsPanel = this.createPanel();
@@ -4886,6 +4898,7 @@ StyleFormatPanel.prototype.addFill = function(container)
 		mxEvent.consume(evt);
 	});
 	
+	// Gradient panel
 	var gradientPanel = this.createCellColorOption(mxResources.get('gradient'),
 		mxConstants.STYLE_GRADIENTCOLOR, 'default', function(color)
 	{
@@ -4928,7 +4941,8 @@ StyleFormatPanel.prototype.addFill = function(container)
 		mxUtils.write(gradientOption, mxResources.get(directions[i]));
 		gradientSelect.appendChild(gradientOption);
 	}
-	
+
+	// Comment this line to disable the gradient control
 	gradientPanel.appendChild(gradientSelect);
 	
 	var curFillStyle;
@@ -5047,7 +5061,8 @@ StyleFormatPanel.prototype.addFill = function(container)
 	});
 	
 	container.appendChild(fillPanel);
-	container.appendChild(gradientPanel);
+	// Comment this line to disable the gradient control for vertex
+	// container.appendChild(gradientPanel);
 	
 	// Adds custom colors
 	var custom = this.getCustomColors();
@@ -5190,9 +5205,10 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	}), graph.shapeForegroundColor);
 	
 	lineColor.appendChild(styleSelect);
-	colorPanel.appendChild(lineColor);
+	// colorPanel.appendChild(lineColor); // Comment this line to disable the line style control (sharp, rounded, curved, color)
 	
-	// Used if only edges selected
+	// Used if only edges selected 
+	// Edge style starts from here
 	var stylePanel = colorPanel.cloneNode(false);
 	stylePanel.style.display = 'inline-flex';
 	stylePanel.style.alignItems = 'top';
@@ -5247,6 +5263,8 @@ StyleFormatPanel.prototype.addStroke = function(container)
 			['arrow', null, null, null], 'geIcon geSprite geSprite-simplearrow', null, null, null, true).setAttribute('title', mxResources.get('simpleArrow')); 
 	}));
 
+
+	// Maybe can add more pattern here?? For condition and duration
 	var altPattern = this.editorUi.toolbar.addMenuFunctionInContainer(altStylePanel, 'geSprite-orthogonal', mxResources.get('pattern'), false, mxUtils.bind(this, function(menu)
 	{
 		addItem(menu, 33, 'solid', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], [null, null]).setAttribute('title', mxResources.get('solid'));
@@ -5598,11 +5616,12 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	if (ss.edges.length == ss.cells.length)
 	{
 		container.appendChild(stylePanel2);
-		container.appendChild(arrowPanel);
+		// Arrow panel is the one with line end and start and spacing and size labels
+		// container.appendChild(arrowPanel);
 	}
 	else if (ss.vertices.length == ss.cells.length)
 	{
-		container.appendChild(perimeterPanel);
+		// container.appendChild(perimeterPanel); // Disable perimeter panel
 	}
 	
 	var listener = mxUtils.bind(this, function(sender, evt, force)
