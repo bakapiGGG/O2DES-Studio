@@ -1431,6 +1431,21 @@ Actions.prototype.init = function()
 			graph.getModel().endUpdate();
 		}
 	});
+	this.addAction('duration', function()
+	{
+		graph.getModel().beginUpdate();
+		try
+		{
+			graph.setCellStyles(mxConstants.STYLE_DASHED, '1');
+			graph.setCellStyles(mxConstants.STYLE_DASH_PATTERN, '1 4');
+			ui.fireEvent(new mxEventObject('styleChanged', 'keys', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN],
+				'values', ['1', '1 4'], 'cells', graph.getSelectionCells()));
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}
+	});
 	this.addAction('dotted', function()
 	{
 		graph.getModel().beginUpdate();

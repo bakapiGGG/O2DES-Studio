@@ -5261,10 +5261,14 @@ StyleFormatPanel.prototype.addStroke = function(container)
 			['flexArrow', null, null, null], 'geIcon geSprite geSprite-arrow', null, null, null, true).setAttribute('title', mxResources.get('arrow'));
 		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
 			['arrow', null, null, null], 'geIcon geSprite geSprite-simplearrow', null, null, null, true).setAttribute('title', mxResources.get('simpleArrow')); 
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
+			['duration', null, null, null], 'geIcon geSprite geSprite-duration', null, null, null, true).setAttribute('title', mxResources.get('duration'));
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
+			['condition', null, null, null], 'geIcon geSprite geSprite-condition', null, null, null, true).setAttribute('title', mxResources.get('condition'));
 	}));
 
 
-	// Maybe can add more pattern here?? For condition and duration
+	// Maybe can add more pattern here?? For condition and duration (only for edge)
 	var altPattern = this.editorUi.toolbar.addMenuFunctionInContainer(altStylePanel, 'geSprite-orthogonal', mxResources.get('pattern'), false, mxUtils.bind(this, function(menu)
 	{
 		addItem(menu, 33, 'solid', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], [null, null]).setAttribute('title', mxResources.get('solid'));
@@ -5274,6 +5278,8 @@ StyleFormatPanel.prototype.addStroke = function(container)
 		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 1']).setAttribute('title', mxResources.get('dotted') + ' (1)');
 		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 2']).setAttribute('title', mxResources.get('dotted') + ' (2)');
 		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 4']).setAttribute('title', mxResources.get('dotted') + ' (3)');
+		addItem(menu, 33, '~', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 1']).setAttribute('title', mxResources.get('tilde') + ' (1)');
+
 	}));
 	
 	var stylePanel2 = stylePanel.cloneNode(false);
@@ -5731,6 +5737,16 @@ StyleFormatPanel.prototype.addStroke = function(container)
 			{
 				edgeShapeDiv.className = 'geSprite geSprite-simplearrow';
 			}
+			else if (ss.style.shape == 'condition')
+			{
+				edgeShapeDiv.className = 'geSprite geSprite-condition';
+				console.log("TILDE");
+			}
+			else if (ss.style.shape == 'duration')
+			{
+				edgeShapeDiv.className = 'geSprite geSprite-duration';
+				console.log("DOUBLE VERTICAL BAR");
+			}
 			else
 			{
 				edgeShapeDiv.className = 'geSprite geSprite-connection';
@@ -6051,7 +6067,7 @@ StyleFormatPanel.prototype.addEffects = function(div)
 		if (ss.edges.length > 0 && ss.vertices.length == 0)
 		{
 			// This will enable/disable the checkbox for flow Animation
-			addOption(mxResources.get('flowAnimation', null, 'Flow Animation'), 'flowAnimation', 1);
+			addOption(mxResources.get('duration', null, 'Duration'), 'duration', 0);
 		}
 	});
 	

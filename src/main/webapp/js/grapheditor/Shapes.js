@@ -3129,6 +3129,197 @@
 	
 	mxCellRenderer.registerShape('startState', StartStateShape);
 
+	// Tilde shape
+	function DurationShape()
+	{
+		mxArrowConnector.call(this);
+		this.spacing = 0;
+	}
+
+	// Duration shape inherits from mxArrowConnector
+	mxUtils.extend(DurationShape, mxArrowConnector);
+
+	DurationShape.prototype.defaultWidth = 4;
+
+	DurationShape.prototype.getEdgeWidth = function()
+	{
+		return mxUtils.getNumber(this.style, 'width', this.defaultWidth) + Math.max(0, this.strokewidth - 1);
+	}
+
+	DurationShape.prototype.isArrowRounded = function()
+	{
+		return this.isRounded;
+	}
+
+	DurationShape.prototype.paintEdgeShape = function(c, pts) {
+		// Start the path
+		c.begin();
+
+		// Move to the first point
+		c.moveTo(pts[0].x, pts[0].y);
+
+		// Calculate the midpoint between the first and last point
+		var midX = (pts[0].x + pts[1].x) / 2;
+		var midY = (pts[0].y + pts[1].y) / 2;
+
+		// Calculate the angle of rotation
+		var angle = Math.atan2(pts[1].y - pts[0].y, pts[1].x - pts[0].x);
+
+		function rotatePoint(point, angle, center) {
+			var rotatedX = Math.cos(angle) * (point.x - center.x) - Math.sin(angle) * (point.y - center.y) + center.x;
+			var rotatedY = Math.sin(angle) * (point.x - center.x) + Math.cos(angle) * (point.y - center.y) + center.y;
+			return new mxPoint(rotatedX, rotatedY);
+		}
+
+		// Draw a line to the midpoint
+		c.lineTo(midX, midY);
+
+		var center = new mxPoint(midX, midY);
+		var leftBotPoint = new mxPoint(midX - 2.5, midY - 10);
+		var leftTopPoint = new mxPoint(midX - 2.5, midY + 10);
+		var rotatedLeftBotPoint = rotatePoint(leftBotPoint, angle, center);
+		var rotatedLeftTopPoint = rotatePoint(leftTopPoint, angle, center);
+
+		c.moveTo(rotatedLeftBotPoint.x, rotatedLeftBotPoint.y);
+		c.lineTo(rotatedLeftTopPoint.x, rotatedLeftTopPoint.y);
+
+		var rightBotPoint = new mxPoint(midX + 2.5, midY - 10);
+		var rightTopPoint = new mxPoint(midX + 2.5, midY + 10);
+		var rotatedRightBotPoint = rotatePoint(rightBotPoint, angle, center);
+		var rotatedRightTopPoint = rotatePoint(rightTopPoint, angle, center);
+
+		c.moveTo(rotatedRightBotPoint.x, rotatedRightBotPoint.y);
+		c.lineTo(rotatedRightTopPoint.x, rotatedRightTopPoint.y);
+
+		c.moveTo(midX, midY);
+
+		// Draw a line to the last point
+		c.lineTo(pts[1].x, pts[1].y);
+
+		// EndPoint
+		var endPoint = new mxPoint(pts[1].x, pts[1].y);
+
+		var botArrowPoint = new mxPoint(endPoint.x - 10, endPoint.y - 5);
+		var topArrowPoint = new mxPoint(endPoint.x - 10, endPoint.y + 5);
+
+		var rotatedBotArrowPoint = rotatePoint(botArrowPoint, angle, endPoint);
+		var rotatedTopArrowPoint = rotatePoint(topArrowPoint, angle, endPoint);
+
+		c.lineTo(rotatedTopArrowPoint.x, rotatedTopArrowPoint.y);
+		c.moveTo(pts[1].x, pts[1].y);
+
+		c.lineTo(rotatedBotArrowPoint.x, rotatedBotArrowPoint.y);
+		
+		// Stroke the path
+		c.stroke();
+	}
+
+	// Register the duration shape
+	mxCellRenderer.registerShape('duration', DurationShape);
+
+	// Condition Shape
+	function ConditionShape()
+	{
+		mxArrowConnector.call(this);
+		this.spacing = 0;
+	}
+
+	// COndition shape inherits from mxArrowConnector
+	mxUtils.extend(ConditionShape, mxArrowConnector);
+
+	// ConditionShape.prototype.paintEdgeShape = function(c, pts) {
+	// 	// Start the path
+	// 	c.begin();
+	
+	// 	// Move to the first point
+	// 	c.moveTo(pts[0].x, pts[0].y);
+	
+	// 	// Calculate the midpoint between the first and last point
+	// 	var midX = (pts[0].x + pts[1].x) / 2;
+	// 	var midY = (pts[0].y + pts[1].y) / 2;
+
+	// 	// Draw a line to the midpoint
+	// 	c.lineTo(midX, midY);
+	
+	// 	// Calculate the radius of the arc
+	// 	var radius = Math.sqrt(Math.pow(pts[1].x - pts[0].x, 2) + Math.pow(pts[1].y - pts[0].y, 2)) / 2;
+	
+	// 	// Draw the arc
+	// 	c.arcTo(radius, radius, 0, 0, 1, midX, midY);
+	// 	c.arcTo(radius, radius, 0, 0, 1, pts[1].x, pts[1].y);
+	
+	// 	// Stroke the path
+	// 	c.stroke();
+	// }
+
+	ConditionShape.prototype.paintEdgeShape = function(c, pts) {
+
+		// Start the path
+		c.begin();
+
+		// Move to the first point
+		c.moveTo(pts[0].x, pts[0].y);
+
+		// Calculate the midpoint between the first and last point
+		var midX = (pts[0].x + pts[1].x) / 2;
+		var midY = (pts[0].y + pts[1].y) / 2;
+
+		var center = new mxPoint(midX, midY);
+
+		// Draw a line to the midpoint
+		c.lineTo(midX, midY);
+
+		var topArcPoint = new mxPoint(midX, midY - 10);
+		var botArcPoint = new mxPoint(midX, midY + 10);
+
+		// // Draw a line to the topArcPoint
+		// c.quadTo(topArcPoint.x, topArcPoint.y, center.x, center.y);
+		// c.quadTo(botArcPoint.x, botArcPoint.y, center.x, center.y);
+
+		// c.quadTo(center.x + 25, center.y + 50, topArcPoint.x, topArcPoint.y);
+		// c.quadTo(center.x - 25, center.y - 50, botArcPoint.x, botArcPoint.y);
+
+		// Calculate the control point
+		var cpX = midX + Math.abs(midY - botArcPoint.y);
+		var cpY = midY;
+
+		// Draw a quadratic Bezier curve to the botArcPoint
+		c.quadTo(cpX, cpY, botArcPoint.x, botArcPoint.y);
+
+		c.moveTo(midX, midY);
+		// Calculate the control point
+		var cpX = midX - Math.abs(midY - topArcPoint.y);
+		var cpY = midY;
+
+		// Draw a quadratic Bezier curve to the topArcPoint
+		c.quadTo(cpX, cpY, topArcPoint.x, topArcPoint.y);
+
+		// c.curveTo(center.x + 25, center.y + 50, center.x - 25, center.y - 50, center.x, center.y);
+
+		//
+
+		// Move to the midpoint
+		c.moveTo(midX, midY);
+
+		// // Draw a line to the botArcPoint
+		// c.lineTo(botArcPoint.x, botArcPoint.y);
+
+		// // Move back to the midpoint
+		// c.moveTo(midX, midY);
+
+		// Draw a line to the last point
+		c.lineTo(pts[1].x, pts[1].y);
+
+		// Stroke the path
+		c.stroke();
+
+	}
+
+	
+
+	// Register the condition shape
+	mxCellRenderer.registerShape('condition', ConditionShape);
+
 	// Link shape
 	function LinkShape()
 	{
@@ -6009,6 +6200,12 @@
 
 				return [createEdgeWidthHandle(state, true, spacing), createEdgeWidthHandle(state, false, spacing)];
 			},
+			// 'tilde': function(state)
+			// {
+			// 	var spacing = 10;
+
+			// 	// return [createEdgeWidthHandle(state, true, spacing), createEdgeWidthHandle(state, false, spacing)];
+			// },
 			'flexArrow': function(state)
 			{
 				// Do not use state.shape.startSize/endSize since it is cached
