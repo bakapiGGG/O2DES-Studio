@@ -3254,6 +3254,12 @@
 
 	ConditionShape.prototype.paintEdgeShape = function(c, pts) {
 
+		function rotatePoint(point, angle, center) {
+			var rotatedX = Math.cos(angle) * (point.x - center.x) - Math.sin(angle) * (point.y - center.y) + center.x;
+			var rotatedY = Math.sin(angle) * (point.x - center.x) + Math.cos(angle) * (point.y - center.y) + center.y;
+			return new mxPoint(rotatedX, rotatedY);
+		}
+
 		// Start the path
 		c.begin();
 
@@ -3266,33 +3272,42 @@
 
 		var center = new mxPoint(midX, midY);
 
+		// Calculate the angle of rotation
+		var angle = Math.atan2(pts[1].y - pts[0].y, pts[1].x - pts[0].x);
+
 		// Draw a line to the midpoint
 		c.lineTo(midX, midY);
 
 		var topArcPoint = new mxPoint(midX, midY - 10);
 		var botArcPoint = new mxPoint(midX, midY + 10);
+		var cpX = midX - 5;
+		var cpY = midY + 5;
 
-		// // Draw a line to the topArcPoint
-		// c.quadTo(topArcPoint.x, topArcPoint.y, center.x, center.y);
-		// c.quadTo(botArcPoint.x, botArcPoint.y, center.x, center.y);
-
-		// c.quadTo(center.x + 25, center.y + 50, topArcPoint.x, topArcPoint.y);
-		// c.quadTo(center.x - 25, center.y - 50, botArcPoint.x, botArcPoint.y);
-
-		// Calculate the control point
-		var cpX = midX + Math.abs(midY - botArcPoint.y);
-		var cpY = midY;
+		var rotatedTopArcPoint = rotatePoint(topArcPoint, angle, center);
+		var rotatedBotArcPoint = rotatePoint(botArcPoint, angle, center);
+		var rotatedBotControlPoint = rotatePoint(new mxPoint(cpX, cpY), angle, center);
 
 		// Draw a quadratic Bezier curve to the botArcPoint
-		c.quadTo(cpX, cpY, botArcPoint.x, botArcPoint.y);
+		c.quadTo(rotatedBotControlPoint.x, rotatedBotControlPoint.y, rotatedBotArcPoint.x, rotatedBotArcPoint.y);
+
+
+		// Draw a quadratic Bezier curve to the botArcPoint
+		// c.quadTo(cpX, cpY, botArcPoint.x, botArcPoint.y);
 
 		c.moveTo(midX, midY);
 		// Calculate the control point
-		var cpX = midX - Math.abs(midY - topArcPoint.y);
-		var cpY = midY;
+		// var cpX = midX - Math.abs(midY - topArcPoint.y);
+		// var cpY = midY;
+
+		var cpX = midX + 5
+		var cpY = midY - 5;
+
+		var rotatedTopControlPoint = rotatePoint(new mxPoint(cpX, cpY), angle, center);
 
 		// Draw a quadratic Bezier curve to the topArcPoint
-		c.quadTo(cpX, cpY, topArcPoint.x, topArcPoint.y);
+		// c.quadTo(cpX, cpY, topArcPoint.x, topArcPoint.y);
+
+		c.quadTo(rotatedTopControlPoint.x, rotatedTopControlPoint.y, rotatedTopArcPoint.x, rotatedTopArcPoint.y);
 
 		// c.curveTo(center.x + 25, center.y + 50, center.x - 25, center.y - 50, center.x, center.y);
 
@@ -3309,6 +3324,20 @@
 
 		// Draw a line to the last point
 		c.lineTo(pts[1].x, pts[1].y);
+
+		// EndPoint
+		var endPoint = new mxPoint(pts[1].x, pts[1].y);
+
+		var botArrowPoint = new mxPoint(endPoint.x - 10, endPoint.y - 5);
+		var topArrowPoint = new mxPoint(endPoint.x - 10, endPoint.y + 5);
+
+		var rotatedBotArrowPoint = rotatePoint(botArrowPoint, angle, endPoint);
+		var rotatedTopArrowPoint = rotatePoint(topArrowPoint, angle, endPoint);
+
+		c.lineTo(rotatedTopArrowPoint.x, rotatedTopArrowPoint.y);
+		c.moveTo(pts[1].x, pts[1].y);
+
+		c.lineTo(rotatedBotArrowPoint.x, rotatedBotArrowPoint.y);
 
 		// Stroke the path
 		c.stroke();
