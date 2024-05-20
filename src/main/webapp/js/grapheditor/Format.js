@@ -6015,7 +6015,8 @@ StyleFormatPanel.prototype.addEffects = function(div)
 		var opt = this.createCellOption(label, key, defaultValue, null, null, fn);
 		opt.style.width = '100%';
 		current.appendChild(opt);
-		current = (current == left) ? right : left;
+		// current = (current == left) ? right : left;
+		current = left;
 
 		return opt;
 	});
@@ -6049,14 +6050,15 @@ StyleFormatPanel.prototype.addEffects = function(div)
 		{
 			addOption(mxResources.get('glass'), mxConstants.STYLE_GLASS, 0);
 		}
-		
-		var option = addOption(mxResources.get('shadow'), mxConstants.STYLE_SHADOW, 0);
 
-		if (!Editor.enableShadowOption)
-		{
-			option.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
-			mxUtils.setOpacity(option, 60);
-		}
+		// Disable the shadow options
+		// var option = addOption(mxResources.get('shadow'), mxConstants.STYLE_SHADOW, 0);
+
+		// if (!Editor.enableShadowOption)
+		// {
+		// 	option.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
+		// 	mxUtils.setOpacity(option, 60);
+		// }
 
 		if (ss.edges.length > 0 && ss.vertices.length == 0)
 		{
