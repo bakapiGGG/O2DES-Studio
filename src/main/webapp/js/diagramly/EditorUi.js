@@ -18093,6 +18093,8 @@
 		this.actions.get('autosave').setEnabled(file != null && file.isEditable() && file.isAutosaveOptional());
 		this.actions.get('guides').setEnabled(active);
 		this.actions.get('editData').setEnabled(graph.isEnabled());
+		this.actions.get('editDuration').setEnabled(active && ss.edges.length >= 0 && ss.vertices.length == 0); // Only appears if edges are selected	
+		this.actions.get('editCondition').setEnabled(active && ss.edges.length >= 0 && ss.vertices.length == 0); // Only appears if edges are selected
 		this.actions.get('editConnectionPoints').setEnabled(active && ss.edges.length == 0 && ss.vertices.length == 1);
 		this.actions.get('editImage').setEnabled(active && ss.image && ss.cells.length > 0);
 		this.actions.get('crop').setEnabled(active && ss.image && ss.cells.length > 0);

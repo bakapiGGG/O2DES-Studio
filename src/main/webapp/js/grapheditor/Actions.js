@@ -741,6 +741,17 @@ Actions.prototype.init = function()
 		var cell = graph.getSelectionCell() || graph.getModel().getRoot();
 		ui.showDataDialog(cell);
 	}, null, null, Editor.ctrlKey + '+M');
+	this.addAction('editDuration...', function()
+	{
+		var cell = graph.getSelectionCell() || graph.getModel().getRoot();
+		ui.showDataDialog(cell);
+	}, null, null);
+	this.addAction('editCondition...', function()
+	{
+		var cell = graph.getSelectionCell() || graph.getModel().getRoot();
+		ui.showDataDialog(cell);
+	}, null, null);
+
 	this.addAction('editTooltip...', function()
 	{
 		var cell = graph.getSelectionCell();
@@ -774,6 +785,7 @@ Actions.prototype.init = function()
 			{
 				graph.setTooltipForCell(cell, newValue);
 			});
+			// Can manually edit the UI window here,
 			ui.showDialog(dlg.container, 320, 200, true, true);
 			dlg.init();
 		}
@@ -1437,7 +1449,7 @@ Actions.prototype.init = function()
 		try
 		{
 			graph.setCellStyles(mxConstants.STYLE_DASHED, '1');
-			graph.setCellStyles(mxConstants.STYLE_DASH_PATTERN, '1 4');
+			graph.setCellStyles(mxConstants.STYLE_DASH_PATTERN, null);
 			ui.fireEvent(new mxEventObject('styleChanged', 'keys', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN],
 				'values', ['1', '1 4'], 'cells', graph.getSelectionCells()));
 		}

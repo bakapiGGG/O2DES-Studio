@@ -4796,7 +4796,7 @@ StyleFormatPanel.prototype.addEditOps = function(div)
 		editSelect.style.marginBottom = '2px';
 		
 		var ops = ['edit', 'copyAsText', 'editLink', 'editShape', 'editImage',
-			'editData', 'copyData', 'pasteData', 'editConnectionPoints',
+			'editData', 'editDuration', 'editCondition', 'copyData', 'pasteData', 'editConnectionPoints', 'editDuration',
 			'editGeometry', 'editTooltip', 'editStyle'];
 		
 		for (var i = 0; i < ops.length; i++)
@@ -4850,7 +4850,7 @@ StyleFormatPanel.prototype.addEditOps = function(div)
 
 					btn.setAttribute('title', mxResources.get('crop'));
 					editSelect.style.width = '104px';
-					btn.style.width = '104px';
+					btn.style.width = '50px';
 					btn.style.marginLeft = '2px';
 					btn.style.marginBottom = '2px';
 
@@ -6013,6 +6013,8 @@ StyleFormatPanel.prototype.addEffects = function(div)
 	var addOption = mxUtils.bind(this, function(label, key, defaultValue, fn)
 	{
 		var opt = this.createCellOption(label, key, defaultValue, null, null, fn);
+		// Wanna know what is opt
+		// console.log(opt);
 		opt.style.width = '100%';
 		current.appendChild(opt);
 		// current = (current == left) ? right : left;
@@ -6052,13 +6054,13 @@ StyleFormatPanel.prototype.addEffects = function(div)
 		}
 
 		// Disable the shadow options
-		// var option = addOption(mxResources.get('shadow'), mxConstants.STYLE_SHADOW, 0);
+		var option = addOption(mxResources.get('shadow'), mxConstants.STYLE_SHADOW, 0);
 
-		// if (!Editor.enableShadowOption)
-		// {
-		// 	option.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
-		// 	mxUtils.setOpacity(option, 60);
-		// }
+		if (!Editor.enableShadowOption)
+		{
+			option.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
+			mxUtils.setOpacity(option, 60);
+		}
 
 		if (ss.edges.length > 0 && ss.vertices.length == 0)
 		{
@@ -6069,7 +6071,31 @@ StyleFormatPanel.prototype.addEffects = function(div)
 		if (ss.edges.length > 0 && ss.vertices.length == 0)
 		{
 			// This will enable/disable the checkbox for flow Animation
-			addOption(mxResources.get('duration', null, 'Duration'), 'duration', 0);
+			var durationOption = addOption(mxResources.get('duration', null, 'Duration'), 'duration', 0);
+
+			// addOption(mxResources.get('guration'), 'Duration', 0, function(cells, enabled) {
+			// 	this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
+			// 		[(enabled) ? 'duration' : null, null, null, null], 'geIcon geSprite geSprite-duration', null, null, null, true).setAttribute('title', mxResources.get('duration'));
+			// });
+			
+			// this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
+			// ['duration', null, null, null], 'geIcon geSprite geSprite-duration', null, null, null, true).setAttribute('title', mxResources.get('duration'));
+		}
+
+		if (ss.edges.length > 0 && ss.vertices.length == 0)
+		{
+			// This will enable/disable the checkbox for flow Animation
+			addOption(mxResources.get('condition', null, 'Condition'), 'condition', 0);
+			// addOption(mxResources.get('sketch'), 'sketch', 0, function(cells, enabled)
+			// {
+			// 	graph.updateCellStyles({'sketch': (enabled) ? '1' : null,
+			// 		'curveFitting': (enabled) ? Editor.sketchDefaultCurveFitting : null,
+			// 		'jiggle': (enabled) ? Editor.sketchDefaultJiggle : null}, cells);
+			// });
+
+			// this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'],
+			// ['duration', null, null, null], 'geIcon geSprite geSprite-duration', null, null, null, true).setAttribute('title', mxResources.get('duration'));
+			
 		}
 	});
 	
