@@ -6011,10 +6011,23 @@ EditorUi.prototype.showDataDialog = function(cell)
 	if (cell != null && typeof window.EditDataDialog !== 'undefined')
 	{
 		var dlg = new EditDataDialog(this, cell);
+		console.log(dlg);
 		this.showDialog(dlg.container, 480, 420, true, false, null, false);
 		dlg.init();
 	}
 };
+
+EditorUi.prototype.showDurationDialog = function(cell)
+{
+	if (cell != null)
+	{
+		var dlg = new EditDurationDialog(this, cell);
+		console.log(dlg);
+		this.showDialog(dlg.container, 480, 420, true, false, null, false);
+		// dlg.init();
+	}
+
+}
 
 /**
  * Hides the current menu.

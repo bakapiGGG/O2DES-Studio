@@ -744,7 +744,7 @@ Actions.prototype.init = function()
 	this.addAction('editDuration...', function()
 	{
 		var cell = graph.getSelectionCell() || graph.getModel().getRoot();
-		ui.showDataDialog(cell);
+		ui.showDurationDialog(cell);
 	}, null, null);
 	this.addAction('editCondition...', function()
 	{

@@ -1537,6 +1537,400 @@ ExportDialog.saveLocalFile = function(editorUi, data, filename, format)
 };
 
 /**
+ * Constructs a new duration dialog.
+ */
+var EditDurationDialog = function(ui, cell)
+{
+	var div = document.createElement('div');
+	var graph = ui.editor.graph;
+	var value = graph.getModel().getValue(cell);
+
+
+	// Converts the value to an XML node
+	if (!mxUtils.isNode(value))
+	{
+		var doc = mxUtils.createXmlDocument();
+		var obj = doc.createElement('object');
+		obj.setAttribute('label', value || '');
+		value = obj;
+	}
+
+	var meta = {};
+	
+	try
+	{
+		var temp = mxUtils.getValue(ui.editor.graph.getCurrentCellStyle(cell), 'metaData', null);
+		
+		if (temp != null)
+		{
+			meta = JSON.parse(temp);
+		}
+	}
+	catch (e)
+	{
+		// ignore
+	}
+
+	// Creates the dialog contents
+	var form = new mxForm('properties');
+	form.table.style.width = '100%';
+
+	var attrs = value.attributes;
+	var names = [];
+	var texts = [];
+	var count = 0;
+
+	var id = (EditDataDialog.getDisplayIdForCell != null) ?
+		EditDataDialog.getDisplayIdForCell(ui, cell) : null;
+
+	var addRemoveButton = function(text, name)
+	{
+		var wrapper = document.createElement('div');
+		wrapper.style.position = 'relative';
+		wrapper.style.paddingRight = '20px';
+		wrapper.style.boxSizing = 'border-box';
+		wrapper.style.width = '100%';
+		
+		var removeAttr = document.createElement('a');
+		var img = mxUtils.createImage(Dialog.prototype.closeImage);
+		img.style.height = '9px';
+		img.style.fontSize = '9px';
+		img.style.marginBottom = (mxClient.IS_IE11) ? '-1px' : '5px';
+		
+		removeAttr.className = 'geButton';
+		removeAttr.setAttribute('title', mxResources.get('delete'));
+		removeAttr.style.position = 'absolute';
+		removeAttr.style.top = '4px';
+		removeAttr.style.right = '0px';
+		removeAttr.style.margin = '0px';
+		removeAttr.style.width = '9px';
+		removeAttr.style.height = '9px';
+		removeAttr.style.cursor = 'pointer';
+		removeAttr.appendChild(img);
+		
+		var removeAttrFn = (function(name)
+		{
+			return function()
+			{
+				var count = 0;
+				
+				for (var j = 0; j < names.length; j++)
+				{
+					if (names[j] == name)
+					{
+						texts[j] = null;
+						form.table.deleteRow(count + ((id != null) ? 1 : 0));
+						
+						break;
+					}
+					
+					if (texts[j] != null)
+					{
+						count++;
+					}
+				}
+			};
+		})(name);
+		
+		mxEvent.addListener(removeAttr, 'click', removeAttrFn);
+		
+		var parent = text.parentNode;
+		wrapper.appendChild(text);
+		wrapper.appendChild(removeAttr);
+		parent.appendChild(wrapper);
+	};
+	
+	var addTextArea = function(index, name, value)
+	{
+		names[index] = name;
+		texts[index] = form.addTextarea(names[count] + ':', value, 2);
+		texts[index].style.width = '100%';
+		
+		if (value.indexOf('\n') > 0)
+		{
+			texts[index].setAttribute('rows', '2');
+		}
+		
+		addRemoveButton(texts[index], name);
+		
+		if (meta[name] != null && meta[name].editable == false)
+		{
+			texts[index].setAttribute('disabled', 'disabled');
+		}
+	};
+	
+	var temp = [];
+	var isLayer = graph.getModel().getParent(cell) == graph.getModel().getRoot();
+
+	for (var i = 0; i < attrs.length; i++)
+	{
+		if ((attrs[i].nodeName != 'label' || Graph.translateDiagram ||
+			isLayer) && attrs[i].nodeName != 'placeholders')
+		{
+			temp.push({name: attrs[i].nodeName, value: attrs[i].nodeValue});
+		}
+	}
+	
+	// Sorts by name
+	temp.sort(function(a, b)
+	{
+		if (a.name < b.name)
+		{
+			return -1;
+		}
+		else if (a.name > b.name)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	});
+
+	if (id != null)
+		{	
+			var text = document.createElement('div');
+			text.style.width = '100%';
+			text.style.fontSize = '11px';
+			text.style.textAlign = 'center';
+			mxUtils.write(text, id);
+			
+			var idInput = form.addField(mxResources.get('id') + ':', text);
+			
+			mxEvent.addListener(text, 'dblclick', function(evt)
+			{
+				var dlg = new FilenameDialog(ui, id, mxResources.get('apply'),
+					mxUtils.bind(this, function(value)
+				{
+					if (value != null && value.length > 0 && value != id)
+					{
+						if (graph.model.isRoot(cell))
+						{
+							var page = ui.getPageById(id);
+
+							if (page != null)
+							{
+								if (ui.getPageById(value) == null)
+								{
+									var index = ui.getPageIndex(page);
+
+									if (index >= 0)
+									{
+										ui.removePage(page);
+										page.node.setAttribute('id', value);
+										id = value;
+										idInput.innerHTML = mxUtils.htmlEntities(value);
+										ui.insertPage(page, index);
+									}
+								}
+								else
+								{
+									ui.handleError({message: mxResources.get('alreadyExst',
+										[mxResources.get('page')])});
+								}
+							}
+						}
+						else
+						{
+							if (graph.getModel().getCell(value) == null)
+							{
+								graph.getModel().cellRemoved(cell);
+								cell.setId(value);
+								id = value;
+								idInput.innerHTML = mxUtils.htmlEntities(value);
+								graph.getModel().cellAdded(cell);
+							}
+							else
+							{
+								ui.handleError({message: mxResources.get('alreadyExst', [value])});
+							}
+						}
+					}
+				}), mxResources.get('id'));
+				ui.showDialog(dlg.container, 300, 80, true, true);
+				dlg.init();
+			});
+		}
+
+	for (var i = 0; i < temp.length; i++)
+	{
+		addTextArea(count, temp[i].name, temp[i].value);
+		count++;
+	}
+
+	// Create top
+	var top = document.createElement('div');
+	
+	// Create table
+	var table = document.createElement('table');
+	table.style.width = 'auto';
+	table.style.border = '1px solid black';
+
+	// Create table header
+	var headerRow = document.createElement('tr');
+
+	// Create Symbol header
+	var symbolHeader = document.createElement('th');
+	symbolHeader.textContent = 'Symbol';
+	symbolHeader.style.fontWeight = 'bold';
+	headerRow.appendChild(symbolHeader);
+
+	// Create Definition header
+	var definitionHeader = document.createElement('th');
+	definitionHeader.textContent = 'Definition';
+	headerRow.appendChild(definitionHeader);
+
+	// Append header row to table
+	table.appendChild(headerRow);
+
+	// Create data row
+	var dataRow = document.createElement('tr');
+
+	// Create Symbol data
+	var symbolData = document.createElement('td');
+	var symbolInput = document.createElement('input');
+	symbolInput.type = 'text';
+	symbolInput.placeholder = 'ta';
+	symbolData.appendChild(symbolInput);
+	dataRow.appendChild(symbolData);
+
+	// Create Definition data
+	var definitionData = document.createElement('td');
+	var definitionSelect = document.createElement('select');
+
+	// Create Exponential option
+	var exponentialOption = document.createElement('option');
+	exponentialOption.textContent = 'Exponential';
+	exponentialOption.value = 'exponential';
+	definitionSelect.appendChild(exponentialOption);
+
+	// Create Lognormal option
+	var lognormalOption = document.createElement('option');
+	lognormalOption.textContent = 'Lognormal';
+	lognormalOption.value = 'lognormal';
+	definitionSelect.appendChild(lognormalOption);
+
+	// Create User input option
+	var userInputOption = document.createElement('option');
+	userInputOption.textContent = 'User input';
+	userInputOption.value = 'userInput';
+	definitionSelect.appendChild(userInputOption);
+
+	definitionData.appendChild(definitionSelect);
+	dataRow.appendChild(definitionData);
+
+	// Append data row to table
+	table.appendChild(dataRow);
+
+	// Add event listener to definitionSelect
+	definitionSelect.addEventListener('change', function() {
+	// Check if Distribution header and data cell exist
+	var distributionHeader = headerRow.querySelector('th:last-child');
+	var distributionData = dataRow.querySelector('td:last-child');
+  
+	// If selected option is 'User input'
+	if (this.value === 'userInput') {
+	  // If Distribution header and data cell do not exist, create them
+	  if (!distributionHeader || distributionHeader.textContent !== 'Distribution') {
+		distributionHeader = document.createElement('th');
+		distributionHeader.textContent = 'Distribution';
+		headerRow.appendChild(distributionHeader);
+  
+		distributionData = document.createElement('td');
+		var distributionInput = document.createElement('input');
+		distributionInput.type = 'text';
+		distributionData.appendChild(distributionInput);
+		dataRow.appendChild(distributionData);
+	  }
+	} else {
+	  // If selected option is not 'User input' and Distribution header and data cell exist, remove them
+	  if (distributionHeader && distributionHeader.textContent === 'Distribution') {
+		headerRow.removeChild(distributionHeader);
+		dataRow.removeChild(distributionData);
+	  }
+	}
+  
+	// Adjust table layout
+	table.style.width = 'auto';
+  });
+
+	top.appendChild(table);
+	div.appendChild(top);
+
+	// Apply button
+	var applyBtn = mxUtils.button(mxResources.get('apply'), function()
+	{
+		try
+		{
+			ui.hideDialog.apply(ui, arguments);
+			
+			// Clones and updates the value
+			value = value.cloneNode(true);
+			var removeLabel = false;
+			
+			for (var i = 0; i < names.length; i++)
+			{
+				if (texts[i] == null)
+				{
+					value.removeAttribute(names[i]);
+				}
+				else
+				{
+					// Maybe can set duration attribute here
+					value.setAttribute(names[i], texts[i].value); 
+					removeLabel = removeLabel || (names[i] == 'placeholder' &&
+						value.getAttribute('placeholders') == '1');
+				}
+			}
+			
+			// Removes label if placeholder is assigned
+			if (removeLabel)
+			{
+				value.removeAttribute('label');
+			}
+			
+			// Updates the value of the cell (undoable)
+			graph.getModel().setValue(cell, value);
+		}
+		catch (e)
+		{
+			mxUtils.alert(e);
+		}
+	});
+
+	applyBtn.setAttribute('title', 'Ctrl+Enter');
+	applyBtn.className = 'geBtn gePrimaryBtn';
+
+	mxEvent.addListener(div, 'keypress', function(e)
+	{
+		if (e.keyCode == 13 && mxEvent.isControlDown(e))
+		{
+			applyBtn.click();
+		}
+	});
+
+	// Cancel button
+	var cancelBtn = mxUtils.button(mxResources.get('cancel'), function()
+	{
+		ui.hideDialog.apply(ui, arguments);
+	});
+	
+	cancelBtn.setAttribute('title', 'Escape');
+	cancelBtn.className = 'geBtn';
+
+	var buttons = document.createElement('div');
+	buttons.style.cssText = 'position:absolute;left:30px;right:30px;text-align:right;bottom:30px;height:40px;'
+	
+	buttons.appendChild(applyBtn);
+	buttons.appendChild(cancelBtn);
+	div.appendChild(buttons);
+
+
+	this.container = div;
+}
+
+/**
  * Constructs a new metadata dialog.
  */
 var EditDataDialog = function(ui, cell)
@@ -1950,12 +2344,14 @@ var EditDataDialog = function(ui, cell)
 	
 	function updateAddBtn()
 	{
-		if (nameInput.value.length > 0)
+		if (nameInput.value.length > 0) // If length > 0, input field is not empty
 		{
+			// If the input field is not empty, this will enable the add button
 			addBtn.removeAttribute('disabled');
 		}
 		else
 		{
+			// If the input field is empty, this will disable the add button
 			addBtn.setAttribute('disabled', 'disabled');
 		}
 	};
