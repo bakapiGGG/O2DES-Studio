@@ -5740,12 +5740,12 @@ StyleFormatPanel.prototype.addStroke = function(container)
 			else if (ss.style.shape == 'condition')
 			{
 				edgeShapeDiv.className = 'geSprite geSprite-condition';
-				console.log("TILDE");
+				// console.log("TILDE");
 			}
 			else if (ss.style.shape == 'duration')
 			{
 				edgeShapeDiv.className = 'geSprite geSprite-duration';
-				console.log("DOUBLE VERTICAL BAR");
+				// console.log("DOUBLE VERTICAL BAR");
 			}
 			else
 			{
