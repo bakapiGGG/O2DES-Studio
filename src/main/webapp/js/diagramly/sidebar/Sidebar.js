@@ -882,10 +882,10 @@
 		this.addO2DESPalette(true, imgDir); // True or false for palette expnasion
 		// this.addMiscPalette(false);	
 		// this.addAdvancedPalette(false); // Adds advanced palette
-		this.addBasicPalette();
-		this.addStencilPalette('arrows', mxResources.get('arrows'), dir + '/arrows.xml',
-				';html=1;' + mxConstants.STYLE_VERTICAL_LABEL_POSITION + '=bottom;' + mxConstants.STYLE_VERTICAL_ALIGN + '=top;' + mxConstants.STYLE_STROKEWIDTH + '=2;strokeColor=#000000;',
-				null, null, null, null, null, 'arrows');
+		// this.addBasicPalette();
+		// this.addStencilPalette('arrows', mxResources.get('arrows'), dir + '/arrows.xml',
+		// 		';html=1;' + mxConstants.STYLE_VERTICAL_LABEL_POSITION + '=bottom;' + mxConstants.STYLE_VERTICAL_ALIGN + '=top;' + mxConstants.STYLE_STROKEWIDTH + '=2;strokeColor=#000000;',
+		// 		null, null, null, null, null, 'arrows');
 
 		// Debug for image directory
 		// console.log('Image directory: ' + imgDir);
@@ -893,7 +893,7 @@
 		// this.setCurrentSearchEntryLibrary('O2DES', 'system')
 		// // this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/computers/', ['grid', 'End'], ['Start', 'End']);
 		// this.addImagePalette('o2des', 'O2DES', imgDir +  '/lib/clip_art/o2des/', '_128x128.png', ['Tilde', 'Vertical_Equal']);
-		this.addArrows2Palette();
+		// this.addArrows2Palette();
 		this.setCurrentSearchEntryLibrary('clipart', 'computer');
 		this.addImagePalette('computer', 'Clipart / Computer', imgDir
 				+ '/lib/clip_art/computers/', '_128x128.png', ['Antivirus',
@@ -995,13 +995,13 @@
 				  'Palm Treo', 'Signaltower off', 'Signaltower on']);
 		this.setCurrentSearchEntryLibrary();
 
-		this.addFlowchartPalette();
+		// this.addFlowchartPalette();
 		this.addActiveDirectoryPalette();
 		this.addAndroidPalette();
 		this.addAtlassianPalette();
 		this.addBootstrapPalette();
 		this.addDFDPalette();
-		this.addErPalette();
+		// this.addErPalette(); // Entity Relation
 		this.addIos7Palette();
 		this.addIosPalette();
 		this.addKubernetesPalette();
@@ -1009,7 +1009,7 @@
 		this.addSitemapPalette();
 		this.addSalesforcePalette();
 		this.addUml25Palette();
-		this.addUmlPalette(false);
+		// this.addUmlPalette(false); // UML Palette
 		this.addAlliedTelesisPalette();
 		this.addAWS3Palette();
 		this.addAWS4bPalette();
