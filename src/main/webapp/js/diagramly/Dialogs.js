@@ -3900,6 +3900,16 @@ var NewDialog = function(editorUi, compact, showName, callback, createOnly, canc
 	// Adds local basic templates
 	categories['basic'] = [{title: 'blankDiagram'}];
 	var templates = categories['basic'];
+
+	categories['O2DES'] = [{
+		"url": "basic/O2DES.xml",
+		"libs": "O2DES",
+		"title": "O2DES Framework Template",
+		"tooltip": "O2DES Framework Template",
+		"preview": null,
+		"clibs": null,
+		"tags": "O2DES"
+	}];
 	
 	if (editorUi.isExternalDataComms() &&
 		editorUi.getServiceName() == 'draw.io' &&

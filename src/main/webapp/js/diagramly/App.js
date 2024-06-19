@@ -4665,6 +4665,7 @@ App.prototype.loadTemplate = function(url, onload, onerror, templateFilename, as
 {
 	var base64 = false;
 	var realUrl = url;
+	console.log("loadTemplate: " + url);
 	var filterFn = (templateFilename != null) ? templateFilename : url;
 	var binary = /\.png$/i.test(filterFn) || /\.pdf$/i.test(filterFn);
 	var isVisioFilename = EditorUi.isVisioFilename(filterFn);
@@ -7061,6 +7062,7 @@ App.prototype.updateHeader = function()
 {
 	if (this.menubar != null)
 	{
+		// console.log('AppIcon ', Editor.logoImage);
 		var logo = 'url(' + Editor.logoImage + ')';
 		this.appIcon = document.createElement('a');
 		this.appIcon.style.display = 'block';
@@ -7086,11 +7088,15 @@ App.prototype.updateHeader = function()
 		{
 			if (Editor.enableCssDarkMode)
 			{
-				this.appIcon.style.backgroundColor = '#f08705';
+				// this.appIcon.style.backgroundColor = '#f08705';
+				// Demo with no colour at background
+				this.appIcon.style.backgroundColor = (!Editor.isDarkMode()) ? '' : '';
 			}
 			else
 			{
-				this.appIcon.style.backgroundColor = (!Editor.isDarkMode()) ? '#f08705' : '';
+				// this.appIcon.style.backgroundColor = (!Editor.isDarkMode()) ? '#f08705' : '';
+				// Demo with no colour at background
+				this.appIcon.style.backgroundColor = (!Editor.isDarkMode()) ? '' : '';
 			}
 		});
 

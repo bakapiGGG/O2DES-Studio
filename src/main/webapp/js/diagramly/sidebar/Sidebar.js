@@ -878,8 +878,11 @@
 			this.addCustomEntries();
 		}
 
-		this.addGeneralPalette(this.customEntries == null);
-		this.addO2DESPalette(true, imgDir); // True or false for palette expnasion
+		this.addO2DESPalette(true, imgDir);
+		// this.addGeneralPalette(this.customEntries == null);
+
+		this.addGeneralPalette(false);
+		 // True or false for palette expnasion
 		// this.addMiscPalette(false);	
 		// this.addAdvancedPalette(false); // Adds advanced palette
 		// this.addBasicPalette();
