@@ -57,6 +57,7 @@ public class Xml2Js
 				{
 					String name = f.getCanonicalPath()
 							.substring(basePath.length() + 1);
+					name = name.replace("\\", "/");
 					result.add(
 							"f['" + name + "'] = '" + processFile(f) + "';\n");
 				}

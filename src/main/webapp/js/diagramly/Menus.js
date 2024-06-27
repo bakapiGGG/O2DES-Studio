@@ -4495,82 +4495,82 @@
 		};
 
 		// Overrides view menu to add search and scratchpad
-		// this.put('view', new Menu(mxUtils.bind(this, function(menu, parent)
-		// {
-		// 	if (Editor.currentTheme == 'simple')
-		// 	{
-		// 		var file = editorUi.getCurrentFile();
-		// 		editorUi.menus.addMenuItems(menu, ['toggleShapes', 'format'], parent);
+		this.put('view', new Menu(mxUtils.bind(this, function(menu, parent)
+		{
+			if (Editor.currentTheme == 'simple')
+			{
+				var file = editorUi.getCurrentFile();
+				editorUi.menus.addMenuItems(menu, ['toggleShapes', 'format'], parent);
 	
-		// 		if (editorUi.isPageMenuVisible())
-		// 		{
-		// 			editorUi.menus.addMenuItems(menu, ['pageTabs'], parent);
-		// 		}
+				if (editorUi.isPageMenuVisible())
+				{
+					editorUi.menus.addMenuItems(menu, ['pageTabs'], parent);
+				}
 
-		// 		editorUi.menus.addMenuItems(menu, ['ruler', '-', 'search'], parent);
+				editorUi.menus.addMenuItems(menu, ['ruler', '-', 'search'], parent);
 
-		// 		if (isLocalStorage || mxClient.IS_CHROMEAPP)
-		// 		{
-		// 			var item = editorUi.menus.addMenuItem(menu, 'scratchpad', parent);
+				if (isLocalStorage || mxClient.IS_CHROMEAPP)
+				{
+					var item = editorUi.menus.addMenuItem(menu, 'scratchpad', parent);
 					
-		// 			if (!editorUi.isOffline() || mxClient.IS_CHROMEAPP || EditorUi.isElectronApp)
-		// 			{
-		// 				editorUi.menus.addLinkToItem(item, 'https://www.drawio.com/doc/faq/scratchpad');
-		// 			}
-		// 		}
+					if (!editorUi.isOffline() || mxClient.IS_CHROMEAPP || EditorUi.isElectronApp)
+					{
+						editorUi.menus.addLinkToItem(item, 'https://www.drawio.com/doc/faq/scratchpad');
+					}
+				}
 				
-		// 		editorUi.menus.addMenuItems(menu, ['-', 'findReplace',
-		// 			'layers', 'tags', 'chatWindowTitle', 'outline', '-'], parent);
+				editorUi.menus.addMenuItems(menu, ['-', 'findReplace',
+					'layers', 'tags', 'chatWindowTitle', 'outline', '-'], parent);
 				
-		// 		if (editorUi.commentsSupported())
-		// 		{
-		// 			editorUi.menus.addMenuItems(menu, ['comments'], parent);
-		// 		}
+				if (editorUi.commentsSupported())
+				{
+					editorUi.menus.addMenuItems(menu, ['comments'], parent);
+				}
 				
-		// 		if (file != null && file.isRealtimeEnabled() && file.isRealtimeSupported())
-		// 		{
-		// 			this.addMenuItems(menu, ['showRemoteCursors'], parent);
-		// 		}
+				if (file != null && file.isRealtimeEnabled() && file.isRealtimeSupported())
+				{
+					this.addMenuItems(menu, ['showRemoteCursors'], parent);
+				}
 
-		// 		this.addMenuItems(menu, ['-', 'fullscreen'], parent);
-		// 	}
-		// 	else
-		// 	{
-		// 		this.addMenuItems(menu, (['format', 'outline', 'layers', 'tags', 'chatWindowTitle']).
-		// 			concat((editorUi.commentsSupported()) ?
-		// 			['comments', '-'] : ['-']));
+				this.addMenuItems(menu, ['-', 'fullscreen'], parent);
+			}
+			else
+			{
+				this.addMenuItems(menu, (['format', 'outline', 'layers', 'tags', 'chatWindowTitle']).
+					concat((editorUi.commentsSupported()) ?
+					['comments', '-'] : ['-']));
 				
-		// 		this.addMenuItems(menu, ['-', 'search'], parent);
+				this.addMenuItems(menu, ['-', 'search'], parent);
 				
-		// 		if (isLocalStorage || mxClient.IS_CHROMEAPP)
-		// 		{
-		// 			var item = this.addMenuItem(menu, 'scratchpad', parent);
+				if (isLocalStorage || mxClient.IS_CHROMEAPP)
+				{
+					var item = this.addMenuItem(menu, 'scratchpad', parent);
 					
-		// 			if (!editorUi.isOffline() || mxClient.IS_CHROMEAPP || EditorUi.isElectronApp)
-		// 			{
-		// 				this.addLinkToItem(item, 'https://www.drawio.com/doc/faq/scratchpad');
-		// 			}
-		// 		}
+					if (!editorUi.isOffline() || mxClient.IS_CHROMEAPP || EditorUi.isElectronApp)
+					{
+						this.addLinkToItem(item, 'https://www.drawio.com/doc/faq/scratchpad');
+					}
+				}
 				
-		// 		this.addMenuItems(menu, ['toggleShapes', '-', 'pageView', 'pageScale']);
-		// 		this.addSubmenu('units', menu, parent);
-		// 		menu.addSeparator(parent);
+				this.addMenuItems(menu, ['toggleShapes', '-', 'pageView', 'pageScale']);
+				this.addSubmenu('units', menu, parent);
+				menu.addSeparator(parent);
 
-		// 		if (editorUi.isPageMenuVisible())
-		// 		{
-		// 			editorUi.menus.addMenuItems(menu, ['pageTabs'], parent);
-		// 		}
+				if (editorUi.isPageMenuVisible())
+				{
+					editorUi.menus.addMenuItems(menu, ['pageTabs'], parent);
+				}
 
-		// 		this.addMenuItems(menu, ['tooltips', 'ruler', '-', 'grid', 'guides',
-		// 			'-', 'connectionArrows', 'connectionPoints', '-',
-		// 			'resetView', 'zoomIn', 'zoomOut'], parent);
+				this.addMenuItems(menu, ['tooltips', 'ruler', '-', 'grid', 'guides',
+					'-', 'connectionArrows', 'connectionPoints', '-',
+					'resetView', 'zoomIn', 'zoomOut'], parent);
 
-		// 		if (urlParams['sketch'] != '1')
-		// 		{
-		// 			this.addMenuItems(menu, ['-', 'fullscreen'], parent);
-		// 		}
-		// 	}
-		// })));
+				if (urlParams['sketch'] != '1')
+				{
+					this.addMenuItems(menu, ['-', 'fullscreen'], parent);
+				}
+			}
+		})));
 
 		// Edit cell menu
 		this.put('editCell', new Menu(mxUtils.bind(this, function(menu, parent)
