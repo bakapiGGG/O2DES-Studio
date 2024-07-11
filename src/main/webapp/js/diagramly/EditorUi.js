@@ -7988,7 +7988,7 @@
 	{
 		dx = (dx != null) ? dx : 0;
 		dy = (dy != null) ? dy : 0;
-		var cells = []
+		var cells = [];
 		
 		try
 		{
@@ -8022,7 +8022,6 @@
 								if (this.isBlankFile())
 								{
 									var name = diagrams[0].getAttribute('name');
-									
 									if (name != null && name != '')
 									{
 										this.editor.graph.model.execute(new RenamePage(
@@ -8035,15 +8034,17 @@
 						{
 							var pages = [];
 							var i0 = 0;
-							
+
+							// Prevent template to be added the first and empty page
 							// Adds first page to current page if current page is only page and empty
-							if (this.pages != null && this.pages.length == 1 && this.isDiagramEmpty())
-							{
-								mapping[diagrams[0].getAttribute('id')] = this.pages[0].getId();
-								node = Editor.parseDiagramNode(diagrams[0]);
-								crop = false;
-								i0 = 1;
-							}
+							// if (this.pages != null && this.pages.length == 1 && this.isDiagramEmpty())
+							// {
+							// 	console.log("Only page and empty");
+							// 	mapping[diagrams[0].getAttribute('id')] = this.pages[0].getId();
+							// 	node = Editor.parseDiagramNode(diagrams[0]);
+							// 	crop = false;
+							// 	i0 = 1;
+							// }
 
 							for (var i = i0; i < diagrams.length; i++)
 							{
@@ -8065,8 +8066,11 @@
 								graph.model.execute(new ChangePage(this, page, page, index, true));
 								pages.push(page);
 							}
+
 							
 							this.updatePageLinks(mapping, pages);
+							// To remove empty page after loading the template
+							this.removePage(this.currentPage);
 						}
 					}
 					
@@ -10627,7 +10631,7 @@
 	};
 
 	/**
-	 * Initializes the UI.
+	 * Initializes the UI. Automatically called after the editor was initialized.
 	 */
 	var editorUiInit = EditorUi.prototype.init;
 	EditorUi.prototype.init = function()
@@ -10636,6 +10640,20 @@
 		
 		var ui = this;
 		var graph = this.editor.graph;
+
+		fetch('http://localhost:8084/o2des.xml')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.text();
+		})
+		.then(xmlContent => {
+			this.importXml(xmlContent);
+		})
+		.catch(error => {
+			console.error('Error fetching O2DES.xml:', error);
+		});
 
 		// Stops panning while freehand is active
 		if (Graph.touchStyle)
@@ -11581,7 +11599,7 @@
 				    	var uri = (mxUtils.indexOf(evt.dataTransfer.types, 'text/uri-list') >= 0) ?
 				    		evt.dataTransfer.getData('text/uri-list') : null;
 				    	var data = this.extractGraphModelFromEvent(evt, this.pages != null);
-				    	
+
 				    	if (data != null)
 				    	{
 				    		graph.setSelectionCells(this.importXml(data, x, y, true));

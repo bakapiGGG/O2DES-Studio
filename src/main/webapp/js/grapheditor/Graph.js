@@ -11376,6 +11376,24 @@ if (typeof mxVertexHandler !== 'undefined')
 					if (parent != null)
 					{
 						var child = this.moveCells([clones[i]], s, s, false)[0];
+
+						// Assuming cells[0].style contains the style string
+						let styleString = cells[0].style;
+
+						// Extract the shape value from the style string
+						let shapeValue = styleString.split(';').find(s => s.startsWith('shape=')).split('=')[1];
+
+						// Check if the shape is 'tableRow'
+						if (shapeValue === 'tableRow') {
+							// Perform your action here
+							// console.log('The shape is tableRow. Performing action...');
+							// Add your code here that should be executed if the shape is tableRow
+							for (let i = 0; i < child.children.length; i++) {
+								// console.log('child[i].value', child.children[i]);
+								child.children[i].value = '';
+							}
+						}
+
 						select.push(child);
 						
 						if (append)

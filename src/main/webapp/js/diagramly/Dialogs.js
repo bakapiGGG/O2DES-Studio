@@ -4473,6 +4473,7 @@ var NewDialog = function(editorUi, compact, showName, callback, createOnly, canc
 		btns.appendChild(helpBtn);
 	}
 
+	// Quit the template dialog
 	var cancelBtn = mxUtils.button(mxResources.get('cancel'), function()
 	{
 		if (cancelCallback != null)
@@ -9345,6 +9346,9 @@ var ChatWindow = function(editorUi, x, y, w, h)
 						var model = new mxGraphModel();
 						codec.decode(doc.documentElement, model);
 						var sentModel = null;
+
+						console.log("Doc is: ", doc);
+						
 						
 						if (xml != null)
 						{
