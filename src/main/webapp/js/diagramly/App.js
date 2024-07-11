@@ -716,7 +716,9 @@ App.main = function(callback, createUi)
 					// 	console.log('Change bootstrap script MD5 in the previous line:', CryptoJS.MD5(content).toString());
 					// 	alert('[Dev] Bootstrap script change requires update of CSP');
 					// }
-					if (CryptoJS.MD5(content).toString() != 'f8508d8c2ee4b8b07daac619c8f3e369')
+
+					// Before hardcoding the url params into index.html
+					if (CryptoJS.MD5(content).toString() != 'f8508d8c2ee4b8b07daac619c8f3e369' && CryptoJS.MD5(content).toString() != 'd21d1aa66719acab1fe4fc5938c4918d')
 					{
 						console.log('Change bootstrap script MD5 in the previous line:', CryptoJS.MD5(content).toString());
 						alert('[Dev] Bootstrap script change requires update of CSP');

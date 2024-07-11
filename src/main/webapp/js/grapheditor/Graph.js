@@ -11417,21 +11417,48 @@ if (typeof mxVertexHandler !== 'undefined')
 							var index = parent.getIndex(cells[i]);
 							model.add(parent, clones[i], index + 1);
 						}
-						
-						console.log("Is parent table", this.isTable(parent));
+												
 						// Extends tables	
 						if (this.isTable(parent))
 						{
 							var row = this.getCellGeometry(clones[i]);
 							var table = this.getCellGeometry(parent);
 
-							console.log(parent, row, table)
+							var grandParent = this.model.getParent(parent);
+							var grandParentGeometry = this.getCellGeometry(grandParent);
+
+							var greatGrandParent = this.model.getParent(grandParent);
+							var greatGrandParentGeometry = this.getCellGeometry(greatGrandParent);
 							
 							if (row != null && table != null)
 							{
 								table = table.clone();
+
+								if (grandParentGeometry) {
+									grandParentGeometry = grandParentGeometry.clone();
+								}
+								
+								if (greatGrandParentGeometry) {
+									greatGrandParentGeometry = greatGrandParentGeometry.clone();
+								}
+
+								// Updates the size of the parent table
 								table.height += row.height;
+
+								if (grandParentGeometry) {
+									grandParentGeometry.height += row.height;
+								}
+								
+								if (greatGrandParentGeometry) {
+									greatGrandParentGeometry.height += row.height;
+								}
+
+
+								
+
 								model.setGeometry(parent, table);
+								model.setGeometry(grandParent, grandParentGeometry);
+								model.setGeometry(greatGrandParent, greatGrandParentGeometry);
 							}
 						}
 					}
