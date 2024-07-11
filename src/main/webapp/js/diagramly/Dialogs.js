@@ -9345,10 +9345,7 @@ var ChatWindow = function(editorUi, x, y, w, h)
 						var codec = new mxCodec(doc);
 						var model = new mxGraphModel();
 						codec.decode(doc.documentElement, model);
-						var sentModel = null;
-
-						console.log("Doc is: ", doc);
-						
+						var sentModel = null;						
 						
 						if (xml != null)
 						{
