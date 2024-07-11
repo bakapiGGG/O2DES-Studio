@@ -11377,11 +11377,22 @@ if (typeof mxVertexHandler !== 'undefined')
 					{
 						var child = this.moveCells([clones[i]], s, s, false)[0];
 
-						// Assuming cells[0].style contains the style string
-						let styleString = cells[0].style;
+						// // Assuming cells[0].style contains the style string
+						// let styleString = cells[0].style;
 
-						// Extract the shape value from the style string
-						let shapeValue = styleString.split(';').find(s => s.startsWith('shape=')).split('=')[1];
+						// // Extract the shape value from the style string
+						// let shapeValue = styleString.split(';').find(s => s.startsWith('shape=')).split('=')[1];
+
+						let shapeValue;
+
+						if (cells[0].style) {
+							let styleString = cells[0].style;
+							// Extract the shape value from the style string
+							const shapeEntry = styleString.split(';').find(s => s.startsWith('shape='));
+							if (shapeEntry) {
+								shapeValue = shapeEntry.split('=')[1];
+							}
+						}
 
 						// Check if the shape is 'tableRow'
 						if (shapeValue === 'tableRow') {
@@ -11407,11 +11418,14 @@ if (typeof mxVertexHandler !== 'undefined')
 							model.add(parent, clones[i], index + 1);
 						}
 						
+						console.log("Is parent table", this.isTable(parent));
 						// Extends tables	
 						if (this.isTable(parent))
 						{
 							var row = this.getCellGeometry(clones[i]);
 							var table = this.getCellGeometry(parent);
+
+							console.log(parent, row, table)
 							
 							if (row != null && table != null)
 							{
