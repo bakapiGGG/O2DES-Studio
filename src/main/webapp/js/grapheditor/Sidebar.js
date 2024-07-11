@@ -1603,14 +1603,14 @@ Sidebar.prototype.addO2DESPalette = function(expand)
 		{
 			return sb.createVertexTemplateFromData('nVVNc5swEP01XDt82El6jJ04ObQznfGhZxXWoEawjBA25Nd3hZaAHBMnZTxj6+3TW/bTQbItuyct6uInZqCCOMy6IHkI4jhaJSv6skjvkLsVA7mWGZMmYC9fgcGQ0VZm0HhEg6iMrH0wxaqC1HiY0BpPPu2Ayvdai5w9hhOwT4WCd7TfMjMFRxHfTvgzyLwYPUc3352lFCOZhZtCZHiaQcljEN4H9ncYJFuNaDxoNJTdFpRN6pgvp7f7HPnt/TVU5j/ux+7+UaiWM8LRmH5Mkca2ysDySWGD2hSYYyXUD8SawIjAv2BMz8UVrUGCClMqtkKV3dtS0bHCChyyk0qxpPMIWe7XxAidA8eUvA8zOs/xeaRPgCUY3dNZgxJGHn19wa2Tv/GW9SbVXyjpDeKw84rP3b/2lRtsdQp8Y6EmV/Sj29W3u3B6Ys/fWSQuY1/xR3UR/Uyhtneb65lwnw+lyb1TX64RUWZlutSvA2No2U91c3K9m+kC7RbbhKdCGtjXIrWWE603v2sPWJmdKKWyuX4GdQQjU8EG7vUo5vMWFerBQeLqRLhQMq8IS6llgYybxmh8gUvUAw3DDD8MD+FcDgLXm2D9YEWb2q3Bg+zsTG40NPJV/BnCs1L+tHI+QBvogqWF8ZVJGlXG/d17Y3CaVuhIKObbM1yevIWFdbkBBny2UcdWmv6jksd/', 296, 100, 'Receiving Signal');
 		}),
-		this.addEntry('Material Queue', function()
-		{
-			return sb.createVertexTemplateFromData('1VTBjsIgFPwa7hR043lZ62lP+wXYPoWEFkJx2/69WJ5r6tbUxI0bDySPGebBDATCRdVtvHTq05ZgCF8TLry1IVVVJ8AYwqguCf8gjNE4CMtvsNnAUic91OEeAUuCb2kOkJAENKE3COy9PbiEFrauoQhye+YoysEH6G4eYYBw/w3YCoLv45Ju1KMfzVpdBoXqM6ZA7xW2XCAmGzzkT9uL2Vig32nvfN57tF6XcFqfEf7eKh3gy8nixLbxziKmQmWQvisLNp3FM/wu5v1GgXYNzHvdaWOENdYPOk7pSuT5gxmg4OpBZL9fxFRA7A8CWr5GQMt/C+jtNQJaPSugOL181QM3+smP', 296, 100, 'Material Queue');
-		}),
-		this.addEntry('Information Queue', function()
-		{
-			return sb.createVertexTemplateFromData('1ZXRboMgFIafhsslCO2y3c7NXvVqT8D0rJAgEDyd+vY7VbrGzcYmW7r0woTz//zI+STCZF53m6iC3voKLJMvTObRexxHdZeDtUxwUzH5zITg9DBRnHGzweVBRXB4SUCMgQ9l9zAqo9Bgb5Owi34fRrX0zkGJ6u3o8RSHiNCd3cIgpfdvwNeAsacp3WSNflK1pkKd0kdNg9nptOQqaapJm/xa9tQsDVK/873L5d6pdVfBYX7G5FOrDcJrUOXBbembkaaxtsmOHhUa76jkVBIsVMZBTPVFqMQ8qmvgWC3joIAJDSyjeDfW5t76OOQk50XB+RTR3eNvoaTAtwOU/TxBc8TEHxBb3yix9b8Ru79RYg/XIkbl6ec/eJO74RM=', 296, 100, 'Information Queue');
-		}),
+		// this.addEntry('Material Queue', function()
+		// {
+		// 	return sb.createVertexTemplateFromData('1VTBjsIgFPwa7hR043lZ62lP+wXYPoWEFkJx2/69WJ5r6tbUxI0bDySPGebBDATCRdVtvHTq05ZgCF8TLry1IVVVJ8AYwqguCf8gjNE4CMtvsNnAUic91OEeAUuCb2kOkJAENKE3COy9PbiEFrauoQhye+YoysEH6G4eYYBw/w3YCoLv45Ju1KMfzVpdBoXqM6ZA7xW2XCAmGzzkT9uL2Vig32nvfN57tF6XcFqfEf7eKh3gy8nixLbxziKmQmWQvisLNp3FM/wu5v1GgXYNzHvdaWOENdYPOk7pSuT5gxmg4OpBZL9fxFRA7A8CWr5GQMt/C+jtNQJaPSugOL181QM3+smP', 296, 100, 'Material Queue');
+		// }),
+		// this.addEntry('Information Queue', function()
+		// {
+		// 	return sb.createVertexTemplateFromData('1ZXRboMgFIafhsslCO2y3c7NXvVqT8D0rJAgEDyd+vY7VbrGzcYmW7r0woTz//zI+STCZF53m6iC3voKLJMvTObRexxHdZeDtUxwUzH5zITg9DBRnHGzweVBRXB4SUCMgQ9l9zAqo9Bgb5Owi34fRrX0zkGJ6u3o8RSHiNCd3cIgpfdvwNeAsacp3WSNflK1pkKd0kdNg9nptOQqaapJm/xa9tQsDVK/873L5d6pdVfBYX7G5FOrDcJrUOXBbembkaaxtsmOHhUa76jkVBIsVMZBTPVFqMQ8qmvgWC3joIAJDSyjeDfW5t76OOQk50XB+RTR3eNvoaTAtwOU/TxBc8TEHxBb3yix9b8Ru79RYg/XIkbl6ec/eJO74RM=', 296, 100, 'Information Queue');
+		// }),
 		
 
 	]
