@@ -10641,7 +10641,7 @@
 		var ui = this;
 		var graph = this.editor.graph;
 
-		fetch('http://localhost:8084/o2des.xml')
+		fetch('http://10.246.112.239:8084/o2des.xml')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
