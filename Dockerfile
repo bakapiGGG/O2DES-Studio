@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
-ENV SPLASH=0 OFFLINE=1 LOCAL=1
+
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
